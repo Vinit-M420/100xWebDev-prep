@@ -1,0 +1,118 @@
+.blueline{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #3772ff;
+    color: white;
+    padding: .8%;   
+}
+
+.banner{
+    /* position: fixed;
+    top: 0; */
+    margin-left: 50px;
+    margin-right: 80px;
+    padding-top: 60px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.topLink{
+    color:black;
+    cursor: pointer;
+    padding-right: 20px;
+    text-align: center;
+    font-size: 16px;
+
+}
+
+.logo{
+    width: 140px;
+    padding-right: 75px;
+    cursor: pointer;
+}
+
+.main{
+    margin-top: 130px;
+    margin-left: 300px;
+    margin-right: 300px;
+    margin-bottom: 200px;
+    text-align: center;
+}
+
+.airflow{
+    font-size: 72px;
+    padding-top: 20px;
+}
+
+.definition{
+    font-size: 20px;
+    color: #707070;
+    /* font-weight: 300; */
+}
+
+.button{
+    color: white;
+    background-color: #017CEE;
+    border: #017CEE;
+    cursor: pointer;
+    font-size: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+}
+
+.header{
+    text-align: center;
+    font-size: 60px;
+    margin: 40px 20px;
+}
+
+.section2{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 60px;
+    margin-right: 60px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.cards{
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    text-align: center;
+    flex-wrap: wrap; 
+    padding-top: 30px;
+}
+
+
+.card {
+     margin: 0 50px; 
+    flex: 1;
+    max-width: 400px;
+    /* padding: 20px; */
+    border-radius: 10px;
+    /* background-color: #f9f9f9; */
+}
+
+.card-img {
+    width: 100px;
+    height: 100px;
+    /* margin-bottom: 10px; */
+}
+
+#card-header{
+    font-size:35px;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    color: #51504F;
+}
