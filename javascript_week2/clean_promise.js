@@ -2,7 +2,7 @@ const fs = require('fs');
 
 // Executor function for Promise
 function readTheFile(resolve) {
-    fs.readFile('week2_js_prac/b.txt', 'utf-8', function(err, data) {
+    fs.readFile('week2_js_prac/a.txt', 'utf-8', function(err, data) {
         resolve(data);
     });
 }
@@ -14,10 +14,10 @@ function readFile(filename) {
 
 // The final callback to consume data
 function callback(contents) {
-    console.log(contents);
+    console.log(contents.trim());
 }
 
 // Call and use
 const p = readFile();
-console.log(p) // Promise Object  or Proxy to async func
+console.log(p) // Promise Object or Proxy to async
 p.then(callback);

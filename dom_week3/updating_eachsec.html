@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>To Do List</title>
+    </head>
+    <body>
+        <h1> My Todo List</h1>
+        <h4>1. Wake up</h4>
+        <h4>2. Go to the Gym</h4>
+        <h4 id="lasth4">heh</h4>
+        <div>
+            <input type="text" placeholder="Enter your tasks"></input>
+            <button>Add tasks</button>
+        </div>
+    </body>
+    <script>
+        let cntr = 0
+        function callback(){
+            const value = document.querySelectorAll('h4')[2];
+            value.innerHTML = cntr
+            if (cntr < 15){
+                cntr = cntr+1;
+            }
+        }
+        
+        setInterval(callback,1000);
+          
+    </script>
+
+</html>
