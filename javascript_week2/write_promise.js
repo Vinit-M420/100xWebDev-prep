@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 function writeFile(resolve) {
-    fs.writeFile('week2_js_prac/test.txt', content, err => {
+    fs.writeFile('javascript_week2/test.txt', content, err => {
         if (err) {
             console.error(err);
         } else {

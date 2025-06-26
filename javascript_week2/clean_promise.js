@@ -2,7 +2,7 @@ const fs = require('fs');
 
 // Executor function for Promise
 function readTheFile(resolve) {
-    fs.readFile('week2_js_prac/a.txt', 'utf-8', function(err, data) {
+    fs.readFile('javascript_week2/a.txt', 'utf-8', function(err, data) {
         resolve(data);
     });
 }
