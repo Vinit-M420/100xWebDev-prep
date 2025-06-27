@@ -6,13 +6,13 @@
     <link rel="stylesheet" href="first.css">
   </head>  
   <body>
-    <div class="blueline">     
+   <div class="blueline">     
     Airflow Summit 2025 is coming October 07-09. Register now for early bird ticket!
     </div>
 
     <div class="banner">
         <div>
-            <img src='C:\Work\my_projects\airflow website clone/wordmark_1.svg' class="logo">
+            <img src='wordmark_1.svg' class="logo">
         </div>
         <div class="navlinks">
             <span class="topLink">Community</span>
@@ -24,7 +24,7 @@
             <span class="topLink">Ecosystem</span>
             <span class="topLink">Airflow Survey 2024</span>
         </div>   
-    </div>
+    </div> 
     
         <div class='main'>
                 <h2 class="airflow">Apache Airflow®</h2>
@@ -38,44 +38,106 @@
     <div class="section2">
         <h2 class='header'>Principles</h2>
 
-        <div class="cards">
-            <div class="card">
-                <img src="scalable.png" class="card-img" alt="Scalable">
-                <h3 id="card-header">Scalable</h3>
-                <p>
-                    Apache Airflow® has a modular architecture and uses a message queue to orchestrate an arbitrary number of workers. Airflow™ is ready to scale to infinity.
-                </p>
-            </div>
+        <div class ="principles-cards">
+                <div class="card">
+                    <img src="scalable.png" class="card-img" alt="Scalable">
+                    <h3 id="card-header">Scalable</h3>
+                    <p>
+                        Apache Airflow® has a modular architecture and uses a message queue to orchestrate an arbitrary number of workers. Airflow™ is ready to scale to infinity.
+                    </p>
+                </div>
 
-            <div class="card">
-                <img src="scalable.png" class="card-img" alt="Dyanmic">
-                <h3 id="card-header">Dyanmic</h3>
-                <p>
-                    Apache Airflow® pipelines are defined in Python, allowing for dynamic pipeline generation. This allows for writing code that instantiates pipelines dynamically.
+                <div class="card">
+                    <img src="scalable.png" class="card-img" alt="Dyanmic">
+                    <h3 id="card-header">Dyanmic</h3>
+                    <p>
+                        Apache Airflow® pipelines are defined in Python, allowing for dynamic pipeline generation. This allows for writing code that instantiates pipelines dynamically.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <img src="scalable.png" class="card-img" alt="Extensible">
+                    <h3 id="card-header">Extensible</h3>
+                    <p>
+                        Easily define your own operators and extend libraries to fit the level of abstraction that suits your environment.</p>
+                </div>
+
+                <div class="card">
+                    <img src="scalable.png" class="card-img" alt="Elegant">
+                    <h3 id="card-header">Elegant</h3>
+                    <p>
+                        Apache Airflow® pipelines are lean and explicit. Parametrization is built into its core using the powerful Jinja templating engine.
+                    </p>
+                </div>
+
+        </div>
+    </div>
+    <div class="section2">
+        <h2 class='header' style="margin-bottom: 80px;">Features</h2>
+
+        <div class="feature">
+            <span style="flex-grow: 1;">
+                <img src="features.png" id="feature-img">
+            </span>
+            <span style="flex-grow: 2;">
+                <h3 id="feature-header">Pure Python</h3>
+                <p>No more command-line or XML black-magic! Use standard Python features to create your workflows, including date time formats for scheduling and loops to dynamically generate tasks. This allows you to maintain full flexibility when building your workflows.
                 </p>
-            </div>
+            </span>
 
         </div>
 
-        <div class="cards">
-            <div class="card">
-                <img src="scalable.png" class="card-img" alt="Extensible">
-                <h3 id="card-header">Extensible</h3>
-                <p>
-                    Easily define your own operators and extend libraries to fit the level of abstraction that suits your environment.</p>
-            </div>
-
-            <div class="card">
-                <img src="scalable.png" class="card-img" alt="Elegant">
-                <h3 id="card-header">Elegant</h3>
-                <p>
-                    Apache Airflow® pipelines are lean and explicit. Parametrization is built into its core using the powerful Jinja templating engine.
+        <div class="feature">
+            <span style="flex-grow: 1;">
+                <img src="features.png" id="feature-img">
+            </span>
+            <span style="flex-grow: 2;">
+                <h3 id="feature-header">Useful UI</h3>
+                <p>Monitor, schedule and manage your workflows via a robust and modern web application. No need to learn old, cron-like interfaces. You always have full insight into the status and logs of completed and ongoing tasks.
                 </p>
-            </div>
+            </span>
+
+        </div>
+
+        <div class="feature">
+            <span style="flex-grow: 1;">
+                <img src="features.png" id="feature-img">
+            </span>
+            <span style="flex-grow: 2;">
+                <h3 id="feature-header">Robust Integrations</h3>
+                <p>Apache Airflow® provides many plug-and-play operators that are ready to execute your tasks on Google Cloud Platform, Amazon Web Services, Microsoft Azure and many other third-party services. This makes Airflow easy to apply to current infrastructure and extend to next-gen technologies.
+
+                </p>
+            </span>
+
+        </div>
+
+        <div class="feature">
+            <span style="flex-grow: 1;">
+                <img src="features.png" id="feature-img">
+            </span>
+            <span style="flex-grow: 2;">
+                <h3 id="feature-header">Easy to Use</h3>
+                <p>Anyone with Python knowledge can deploy a workflow. Apache Airflow® does not limit the scope of your pipelines; you can use it to build ML models, transfer data, manage your infrastructure, and more.
+                </p>
+            </span>
+
+        </div>
+
+        <div class="feature">
+            <span style="flex-grow: 1;">
+                <img src="features.png" id="feature-img">
+            </span>
+            <span style="flex-grow: 2;">
+                <h3 id="feature-header">Open Source</h3>
+                <p>Wherever you want to share your improvement you can do this by opening a PR. It’s simple as that, no barriers, no prolonged procedures. Airflow has many active users who willingly share their experiences. Have any questions? Check out our buzzing slack.
+                </p>
+            </span>
 
         </div>
 
     </div>
+
 
 
   </body>
