@@ -3,5 +3,4 @@ function sum(a,b){
 }
 
 let num = sum(2,5)
-
 console.log(num)
