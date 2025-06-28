@@ -1,0 +1,29 @@
+body{
+    background-color: #282c34;
+    color: #f7e6d3;
+    font-family: 'Lucida Sans', sans-serif;
+    /* text-align: center; */
+    margin: 200px 380px;
+    padding: 20px ;
+    border-color: #4b5676;
+    border: 5px;
+}
+
+.quizlabel{
+    padding-bottom: 4px;
+}
+
+button{
+    margin: 10px;
+    background-color: #000000;
+    color: #f7e6d3;
+    border: 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-family: 'Lucida Sans', sans-serif;
+}
+
+button:hover{
+    background-color: #4f5557;
+}

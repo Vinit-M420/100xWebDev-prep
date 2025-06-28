@@ -41,13 +41,31 @@ app.post('/',  function(req, res) {
 }
 );
 
+function checkUnhealthyKidneys(){
+    let isUnhealthyKidney = false;
+    for (let i=0; i < users[0].kidneys.length; i++){
+        if (!users[0].kidneys[i].healthy) {
+            isUnhealthyKidney = true;
+        }
+    }
+    return isUnhealthyKidney;
+}
+
 app.delete('/', function(req,res) {
-    const allHealthy = users[0].kidneys.every(kidney => kidney.healthy);
-    users[0].kidneys = allHealthy;
+    if (checkUnhealthyKidneys()){
+        const allHealthy = users[0].kidneys.filter(kidney => kidney.healthy);
+        users[0].kidneys = allHealthy;
+        res.json({ 
+            msg:'Done' 
+        });
+    }
+    else{
+        res.sendStatus(411).json({
+            msg:'You have no unhealthy kidney/s'
+        });
+    }
 
-    res.json({});
-
-})
+});
 
 
 app.put('/', function(req, res) {
