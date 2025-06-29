@@ -1,0 +1,51 @@
+<html>
+    <link href="bgc.css" rel="stylesheet" type="text/css" />
+    <body>
+        <div class="colorbar">
+        <button onclick="red()" id="red">Red</button>
+        <button onclick="yellow()" id="yellow">Yellow</button>
+        <button onclick="black()" id="black">Black</button>
+        <button onclick="lblue()" id="lightblue">LightBlue</button>
+        <button onclick="green()"id='green'>Green</button>
+        <button onclick="defaultc()" id="default">Default</button>
+        </div>    
+    </body>
+    
+    <script>
+        function red(){
+            const body = document.querySelector('body');
+            body.style.backgroundColor= 'red';
+
+        }
+
+        function yellow(){
+            const body = document.querySelector('body');
+            body.style.backgroundColor= 'yellow';
+        }
+
+        function black(){
+            const body = document.querySelector('body');
+            body.style.backgroundColor= 'black';
+        }
+
+        function lblue(){
+            const body = document.querySelector('body');
+            body.style.backgroundColor= 'lightblue';
+        }
+
+        function green(){
+            const body = document.querySelector('body');
+            body.style.backgroundColor= 'green';
+        }
+
+        function defaultc(){
+            const body = document.querySelector('body');
+            const userColor = prompt('Enter a colour to want');
+
+            body.style.backgroundColor = userColor;
+        }
+
+
+
+    </script>
+</html>
