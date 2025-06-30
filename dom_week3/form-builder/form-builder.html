@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Form Builder</title>
+        <link href="formstyle.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="main">
+            <span class='builder'>
+                <h3>Form Builder</h3>
+                <div>
+                    <label for="dropdown">Select Field Type</label>
+                    <select id="dropdown">
+                    <option value="input">Input</option>
+                    <option value="email">Email</option>
+                    <option value="password">Password</option>
+                    <option value="date">Date</option>
+                    <option value="checkbox">Checkbox</option>
+                    <option value="radio">Radio</option>
+                    <option value="button">Button</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="fieldlabel">Field Label</label>
+                    <input type="text" placeholder="Enter the field label" name="fieldLabel"></input>
+                </div>
+                <div>
+                    <button onclick="addfield()">Add Field</button>
+                </div>
+                <div>
+                    <button onclick="resetform()">Reset Form</button>
+                </div>
+                            
+
+            </span>
+
+            <span class="preview">
+                <h3>Form Preview</h3>
+                <div class="previewbody">
+
+                </div>
+            </span>
+        </div>
+        <script src="form-preview.js"></script>
+
+    </body>
+
+</html>

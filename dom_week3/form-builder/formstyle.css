@@ -1,0 +1,53 @@
+body{
+    background-color: rgb(40, 44, 52);
+    color: #f7e6d3;
+    font-family: 'Lucida Sans', sans-serif;
+}
+
+.main{
+    display: flex;
+    margin: 20px auto; 
+    width: 1200px;
+    gap: 10px;
+}
+
+.builder{
+    flex-grow: 1;
+    padding: 5px 10px;
+}
+
+.builder label, 
+    .builder input, 
+    .builder select {
+        display: block;
+        margin-bottom: 10px;
+        
+    }
+
+.preview{
+    flex-grow: 1;
+}
+
+.preview label, 
+    .preview input{
+        display: block;
+        margin-bottom: 10px;
+        
+    }
+
+
+
+button {
+padding: 10px 15px;
+background-color: rgb(100, 121, 166);
+color: white;
+border: none;
+border-radius: 5px;
+font-weight: bold;
+cursor: pointer;
+margin-bottom: 10px;
+}
+
+button:hover {
+    background-color: rgb(63, 96, 169);
+}
