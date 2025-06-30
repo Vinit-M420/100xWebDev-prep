@@ -6,7 +6,23 @@
 */
 
 function countVowels(str) {
-    // Your code here
+    let count = 0;
+    const vowels = 'aeiou';
+    str = str.toLowerCase();
+    
+    for (let i =0; i<str.length ; i++){
+      for (let j=0; j<=vowels.length;j++){
+        if (str.split('')[i] === vowels.split('')[j]){
+          count = count + 1;
+        }
+      }
+    }
+    //console.log(count)
+    return count;
 }
 
+// console.log('vinit'.split(''));
+// countVowels('vinit');
+
 module.exports = countVowels;
+
