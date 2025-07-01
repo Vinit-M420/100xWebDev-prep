@@ -1,0 +1,74 @@
+body{
+    background-color: #222831;
+    color: #DFD0B8;
+    font-family: 'Lucida Sans', sans-serif;
+    
+}
+
+.input{
+    /* background-color: #393E46; */
+    margin: 20px 100px;
+    padding: 40px 450px;
+}
+
+.input label ,
+    .input input,
+        .input select {
+            display: block;
+            margin-bottom: 10px;    
+}
+
+.input input,
+.input select {
+    width: 250px;       /* Increase width */
+    padding: 10px;      /* Add padding for better appearance */
+    font-size: 16px;    /* Increase text size */
+    border-radius: 6px; /* Optional: rounded corners */
+    border: 1px solid #ccc;
+    background-color: #393E46;
+    color: #DFD0B8;
+    box-sizing: border-box;
+}
+
+.input button{
+    margin-top: 10px;
+    padding: 10px 20px;
+    margin-right: 5px;
+    font-size: 16px;
+    /* width: 150px; */
+    border-radius: 6px;
+    border: 1px solid #DFD0B8;
+    background-color: #393E46;
+    color: #DFD0B8;
+}
+
+.input button:hover{
+    background-color: #5d6675;
+}
+
+.cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card{
+    background-color: #948979;
+    width: 150px;
+    height: 250px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    display: inline-block;
+    margin: 10px;
+    padding: 15px;
+    color: #000000;
+    text-align: center;
+}
+
+.card img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+}

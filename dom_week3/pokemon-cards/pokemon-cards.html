@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pokemon Cards</title>
+        <link href="cards.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="main">
+            <div class="input">
+                    <div id="cardcount-div">
+                        <label for="cardcount">No of Cards</label>
+                        <input type="number" placeholder="0" name="cardcount" min="1" max="100"></input>
+                    </div>
+                    <div>
+                        <label for="dropdown">Select Pokemon Type</label>
+                        <select id="dropdown">
+                            <option value="fire">Fire</option>
+                            <option value="water">Water</option>
+                            <option value="grass">Grass</option>
+                            <option value="electric">Electric</option>
+                            <option value="rock">Rock</option>
+                        </select>
+                    <div>
+                        <button onclick="gather()">Gather Cards</button>
+                        <button onclick="lose()">Lose Cards</button>
+                    </div>
+                </div>
+            </div>
+            <div class="cards">
+                <!-- <div class="card">
+                    <h2>Pikachu</h2>
+                    <h4>Type: Electric</h4>
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" />
+                </div>
+                <div class="card">
+                    <h2>Balbasaur</h2>
+                    <h4>Type: Grass</h4>
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png" />
+                </div> -->
+
+            </div>
+        </div>
+         <script src="pokecards.js"></script>
+    </body>
+</html>
