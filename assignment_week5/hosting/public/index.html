@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.6/axios.min.js"></script>
+</head>
+
+<body>
+  <input id="a" type="text" placeholder="first value"></input>
+  <br>
+  <input id="b" type="text" placeholder="second value"></input>
+  <br>
+  <button onclick="sendRequest()">Submit </button>
+  <script>
+    async function sendRequest() {
+      console.log("Button clicked");
+      const a = document.getElementById('a').value;
+      const b = document.getElementById('b').value;
+
+      try {
+        const res = await axios.get("http://localhost:3000/sum", {
+          params: { a, b } // ✅ send as query params
+        });
+        console.log("Sum:", res.data.ans);
+      } 
+      catch (err) {
+        console.error(err);
+      }
+    }
+
+    //sendRequest();
+  </script>
+</body>
+
+</html>
