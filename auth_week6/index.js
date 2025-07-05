@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const JWT_SECRET = 'heheusuckingatcoding'
 app.use(express.json());
+const path = require('path');
 
 let users = []
 let loggedIn = false;
@@ -18,6 +19,10 @@ function auth(req,res,next){
          res.json({ msg:'You are not logged in'})
     }
 }
+
+app.get('/', function(req,res) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+})
 
 app.post('/signup', function(req,res) {
     const username = req.body.username;
@@ -44,7 +49,7 @@ app.post('/signin' ,function(req,res) {
 
     if (user){
         const token = jwt.sign({
-            username: username
+            username: user.username
         }, JWT_SECRET) ;
         res.json({ token: token });
         let loggedIn = true;
@@ -61,7 +66,8 @@ app.get('/me', auth , function(req, res) {
 
         if (founduser) {
             res.json({
-                username: founduser.username
+                username: founduser.username,
+                password: founduser.password
             });
         } else {
             res.status(401).json({ msg: 'Invalid token' });
@@ -70,6 +76,5 @@ app.get('/me', auth , function(req, res) {
         res.status(401).json({ msg: 'Invalid token' });
     }
 });
-
 
 app.listen(3000);

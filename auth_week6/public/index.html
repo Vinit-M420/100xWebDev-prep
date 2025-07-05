@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>Auth Website</title>
+        <style>
+            .signup, .signin { display: none; }
+        </style>
+    </head>
+    <body style="background-color:black; color:#FFFF">
+        <div class="signup">
+            Signup 
+            <input id="signup-username" type="text" placeholder="Enter your username">
+            <input id="signup-password" type="password" placeholder="Enter your password">
+            <button onclick="signup()">Signup</button>
+        </div>
+        <div class="signin">
+            Signin  
+            <input id="signin-username"  type="text" placeholder="Enter your username">
+            <input id="signin-password"  type="password" placeholder="Enter your password">
+            <button onclick="signin()">Signin</button>
+        </div>
+        <div class="info">
+            User Info:
+            <div id="information">
+
+            </div>
+        </div>
+        <br>
+        <div>
+            <button type='submit' onclick="logout()">Logout</button>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.6/axios.min.js"></script>
+        <script>
+            window.onload = function() {
+                selectiveShow();
+                getUserInfo();
+            };
+
+            async function signup(){
+                const username = document.getElementById('signup-username').value;
+                const password = document.getElementById('signup-password').value;
+                
+                await axios.post("http://localhost:3000/signup" , {
+                    username: username,
+                    password: password
+                });
+                alert('You are signed up');
+                document.querySelector('.signup').style.display = 'none';
+                document.querySelector('.signin').style.display = 'block';
+                        
+            };
+
+            async function signin(){
+                const username = document.getElementById('signin-username').value;
+                const password = document.getElementById('signin-password').value;
+                
+                let response = await axios.post("http://localhost:3000/signin" , {
+                    username: username,
+                    password: password
+                });
+                localStorage.setItem('token', response.data.token);
+                alert('You are signed in baby');
+                selectiveShow();
+                await getUserInfo();  // Fetch and display additional info
+
+                // Clear signin inputs
+                document.getElementById('signin-username').value = '';
+                document.getElementById('signin-password').value = '';
+
+            }
+
+            async function getUserInfo(){
+                const response = await axios.get('http://localhost:3000/me' ,{
+                    headers: {
+                        token: localStorage.getItem("token")
+                    }
+                })
+
+                document.getElementById('information').innerHTML =
+                    "Username: " + response.data.username + " password: " + response.data.password;
+             }  
+            getUserInfo();
+
+            function logout(){
+                localStorage.removeItem("token");
+                alerted('You are logged out');
+                selectiveShow();
+                //window.location.reload();      
+             };
+
+            function selectiveShow(){
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    document.querySelector('.signup').style.display = 'block';
+                    document.querySelector('.signin').style.display = 'none';
+                } else {
+                    document.querySelector('.signup').style.display = 'none';
+                    document.querySelector('.signin').style.display = 'block';
+            }
+
+        }
+
+
+        </script>
+    </body>
+</html>
