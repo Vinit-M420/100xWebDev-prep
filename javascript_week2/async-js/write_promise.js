@@ -5,11 +5,7 @@ function writeFile(resolve) {
         if (err) {
             console.error(err);
         } else {
-            fs.readFile('week2_js_prac/test.txt', 'utf-8', function(err, data) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    resolve(data);
+            fs.readFile('week2_js_prac/test.txt', 'utf-8'	
                 }
             });
         }
