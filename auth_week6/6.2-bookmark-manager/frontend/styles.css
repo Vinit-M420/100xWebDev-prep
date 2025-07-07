@@ -1,32 +1,104 @@
 body {
-  /*start here  */
- }
+  background-color: #F0F8FF;
+  color: #003153;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
    
  .container {
-  /*start here  */
- }
+  background-color: #E6F6FF;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(0, 49, 83, 0.06);
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 500px;
+}
    
  h1 {
-    /*start here  */
+    font-size: 40px;
+    text-align: center;
+ }
+
+input {
+  background-color: #D6ECFA;
+  color: #003153;  
+  border: 1px solid #5DA9E9; /* Accent border */
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 5px;
+ }
+
+input::placeholder {
+  color: grey;
+}
+
+.input-container{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
  }
     
  button {
-   /*start here  */
+  background-color: #5DA9E9;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+ }
+ 
+#add-bookmark-btn {
+  padding: 5px 15px;
+  font-size: 20px;
+  /* align-self: right; */
+ }
+
+button:hover{
+  background-color: #003153;
  }
    
- #bookmark-list {
-  /*start here  */
- }
-   
- #bookmark-list li {
-  /*start here  */
- }
-   
- button.favorite-btn {
-  /*start here  */
- }
-   
- button.delete-btn {
-  /*start here  */
- }
-   
+
+#bookmark-list {
+  padding: 0;
+  list-style-type: none;
+}
+  
+#bookmark-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  
+}
+
+button.delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background: transparent; */
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 6px;
+  transition: background 0.2s;
+  height: 32px; /* Ensures button height matches li height */
+  width: 32px;
+  margin-right: 5px;
+}
+button.delete-btn img {
+  display: block;
+  width: 20px;
+  height: 20px;
+  
+}
+
+button.delete-btn:hover {
+  background-color: #e3f0fa;
+}
+
+/*   
+button.favorite-btn {
+} */
