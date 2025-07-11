@@ -11,12 +11,18 @@ export async function addBookmark(req,res,next){
     }
 
 
-    bookmarks.push({ 
-        id: idcount++, bookmark: bookmarkName, category: bookmarkcategory
-    });
+    const newBookmark = {
+        id: idcount++,
+        bookmark: bookmarkName,
+        category: bookmarkcategory
+    };
+
+    bookmarks.push(newBookmark);
+
     
     res.json({ 
-        message: 'Added your bookmark', bookmark: { id: idcount++, bookmark: bookmarkName, category: bookmarkcategory }
+        message: 'Added your bookmark', 
+        bookmark: newBookmark
         
     });
 
