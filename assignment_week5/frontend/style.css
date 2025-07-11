@@ -1,8 +1,11 @@
+* {
+    margin: 0;
+    padding: 0; 
+}
+
 body {
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 300px;
-  font-style: normal;
   background-color: #002B5B;
   height: 100vh;
   margin: 0;
@@ -51,11 +54,13 @@ input[type="password"],
 }
 
 input::placeholder {
-  color: #006BB6;
+  color: #616d76;
+  font-family: "Oswald", sans-serif;
 }
 
 button {
-    padding: 10px;     
+    padding: 10px;
+    /* margin-bottom: 15px;      */
     font-size: 16px;   
     border-radius: 10px; 
     border: 1px solid #006BB6;
@@ -78,4 +83,32 @@ a{
 
 a:hover{
   text-decoration: underline;
+}
+
+ul {
+  list-style-type: none;
+  font-size: 16px;
+  margin-top: 15px;
+  margin-bottom: 5px;  
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+
+}
+
+.btn-container {
+  display: flex;
+  gap: 5px;
+  margin-left: auto; 
+}
+
+p {
+  margin-top: 15px;
 }

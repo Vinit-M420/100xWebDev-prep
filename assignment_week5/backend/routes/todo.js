@@ -1,38 +1,33 @@
 const express = require('express');
-const app = express();
+const router = express.Router();
 const { TodoModel } = require("../db/index");
 const { auth } = require("../middleware/user");
 const { z } = require("zod");
-let idCounter = 1;
-// const jwt = require("jsonwebtoken");
-// require('dotenv').config()
 
-app.use(express.json());
-app.use(auth);
 
-app.post("/", async function (req,res) {
+router.use(express.json());
+router.use(auth);
+
+router.post("/", async function (req,res) {
     const requiredTodo = z.object({
-        todoId: z.number(),
-        title: z.string().min(3).max(20),
-        done: z.boolean()
+        title: z.string().min(3).max(20)
+        //done: z.boolean()
     })
 
     const parsedDatawithSuccess = requiredTodo.safeParse(req.body);
 
     if (!parsedDatawithSuccess.success){
-        res.json({ 
+        res.status(403).json({ 
             message: "Invalid format to the todo",
             error: parsedDatawithSuccess.error
     })}
 
     const userId = req.userId;
-    let todoId = idCounter++;
     const title = req.body.title;
     const done = req.body.done;
 
     await TodoModel.create({
         userId,
-        todoId,
         title,
         done
     });
@@ -42,24 +37,117 @@ app.post("/", async function (req,res) {
     })
 });
 
-app.get("/", async function(req,res) {
-    const userId = req.userId;
-    const user = await TodoModel.find({ userId });
-    res.json({ user }) // Gets all the todo of the found user 
-});
+    router.get("/", async function(req,res) {
+        const userId = req.userId;
+        try {
+            const todos = await TodoModel.find({ userId: userId });
+            res.json({ todos }) // Gets all the todo of the found user 
+        }
+        catch(error){
+            res.status(500).json({
+                msg: "Error fetching todos",
+                error: error.message,
+            });
+        }
+        
+    });
 
-app.delete("/:id", async function(req,res) {
-    const todoToDelete = parseInt(req.params.id);
-    const userId = req.userId;
-    const user = await TodoModel.find({ userId });
-    const todo = await user.find(u => u.todoId === todoToDelete);
-    user.delete(todo);
-})
 
-app.put("/:id", async function(req,res) {
-    const { id } = req.params; 
+router.delete("/:id", async function(req,res) {
+    const deleteId = req.params.id;
+    const userId = req.userId;
     
+
+    try{
+        const todo = await TodoModel.findOne({ _id: deleteId, userId: userId });
+        if (!todo){
+            return res.status(400).json({ 
+                message: "Todo not found or you don't have permission to delete" 
+            });
+        }
+        await TodoModel.deleteOne( { _id: deleteId });
+        res.json({ message: "Deleted the todo" })
+
+    } catch(err){
+        res.status(400).json({
+            message: "Error in deleting an todo",
+            error: err.message
+        });
+    }
+
+});
+
+router.put("/:id/done", async function(req,res) {
+    const { id } = req.params;
+    const userId = req.userId;
+    const { done } = req.body;
+
+    if (typeof done !== 'boolean') {
+        return res.status(400).json({
+            message: "You must provide a done status.",
+        });
+    }
+
+    try {
+        const result = await TodoModel.updateOne(
+            { _id: id },
+            { done: done }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                message: "Todo not found"
+            });
+        }
+
+        res.json({
+            msg: "Todo marked.",
+        });
+    }
+    catch(error){
+        res.status(400).json({ 
+            message: "Error in updating the todo done status", 
+            error: error.message 
+        });
+    }
+   
 });
 
 
-module.exports = app;
+router.put("/:id/title", async function(req,res) {
+    const { id } = req.params;
+    const userId = req.userId;
+    const { title } = req.body;
+
+    if (typeof title !== 'string' || !title || title.trim().length === 0) {
+        return res.status(400).json({
+            message: "Title for the todo is required",
+        });
+    }
+
+    try {
+        const result = await TodoModel.updateOne(
+            { _id: id },
+            { title: title.trim() }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                message: "Todo not found"
+            });
+        }
+
+        res.json({
+            msg: "Todo title successfully updated.",
+        });
+    }
+    catch(error){
+        res.status(400).json({ 
+            message: "Error in updating the todo title", 
+            error: error.message 
+        });
+    }
+});
+
+
+module.exports = router;

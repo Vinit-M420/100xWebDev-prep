@@ -1,14 +1,14 @@
 const express = require('express');
-const app = express();
+const router = express.Router(); 
 const { UserModel } = require("../db");
 const bcrypt = require("bcrypt");
 const { z } = require("zod");
 const jwt = require("jsonwebtoken");
 require('dotenv').config()
 
-app.use(express.json());
+router.use(express.json());
 
-app.post("/signup", async function (req,res) {
+router.post("/signup", async function (req,res) {
     const requiredBody = z.object({
         email: z.string().min(3).max(100).email(),
         password: z.string().min(3).max(30).refine((password) => {
@@ -25,7 +25,7 @@ app.post("/signup", async function (req,res) {
 
     const parsedDatawithSuccess = requiredBody.safeParse(req.body);
     if (!parsedDatawithSuccess.success) {
-        res.json({ 
+        res.status(403).json({ 
             message: 'Incorrect format',
             error: parsedDatawithSuccess.error
         })
@@ -50,12 +50,13 @@ app.post("/signup", async function (req,res) {
         res.status(200).json({ message: "User created successfully!" })
 
     } catch(err){
-        res.status(403).json({ message: "Error in creating the user" })
+        console.log(err);
+        res.status(403).json({ message: "Error in creating the user", error: err.message })
     }
 
 });
 
-app.post("/signin", async function (req,res) {
+router.post("/signin", async function (req,res) {
     const requiredBody = z.object({
         email: z.string().min(3).max(100).email(),
         password: z.string().min(3).max(30).refine((password) => {
@@ -72,7 +73,7 @@ app.post("/signin", async function (req,res) {
 
     const parsedDatawithSuccess = requiredBody.safeParse(req.body);
     if (!parsedDatawithSuccess.success) {
-        res.json({ 
+        res.status(403).json({ 
             message: 'Incorrect format',
             error: parsedDatawithSuccess.error
         })
@@ -93,6 +94,9 @@ app.post("/signin", async function (req,res) {
             const token = jwt.sign({ id : user._id.toString() }, process.env.JWT_SECRET)
             res.json({ token: token })
         }
+        else{
+            res.status(403).json( { message: "Invalid Password" })
+        }
     } catch(e){
         res.status(403).json({ error: "Invalid credentials"})
         console.log(e);
@@ -100,4 +104,4 @@ app.post("/signin", async function (req,res) {
     
 });
 
-module.exports = app;
+module.exports = router;

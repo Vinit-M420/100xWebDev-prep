@@ -23,7 +23,6 @@ const User = new Schema({
 })
 
 const Todo = new Schema({
-    todoId: Number,
     title: String,
     done: Boolean,
     userId: ObjectId
