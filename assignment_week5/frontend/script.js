@@ -213,6 +213,7 @@ async function loadTodos(){
 
             let deleteBtn = document.createElement("button");
             deleteBtn.textContent= "Delete";
+            deleteBtn.className = 'delete-btn'
             deleteBtn.onclick = () => {
                 deleteTodo(todo._id);
             };
