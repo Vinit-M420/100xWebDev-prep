@@ -90,6 +90,10 @@ input::placeholder {
   color: #006BB6;
 }
 
+.toggle-btn:hover{
+  background: none;
+}
+
 
 button {
     padding: 10px;
