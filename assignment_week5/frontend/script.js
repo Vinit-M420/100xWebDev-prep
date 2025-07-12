@@ -335,3 +335,16 @@ function showTodoContainer() {
     // Load todos when showing todo container
     loadTodos();
 }
+
+function togglePassword(args){
+    const input = document.getElementById(`${args}-password`); 
+    const toggleBtn = document.querySelector('.toggle-btn');
+    if (input.type === "password") {  
+        input.type = 'text';  
+        toggleBtn.innerHTML = "👁️";
+    }
+    else{ 
+        input.type = "password";
+        toggleBtn.innerHTML = "🙈";
+    }
+}

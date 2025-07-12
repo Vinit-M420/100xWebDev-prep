@@ -1,7 +1,9 @@
 * {
     margin: 0;
     padding: 0; 
+    box-sizing: border-box;
 }
+
 
 body {
   font-family: "Oswald", sans-serif;
@@ -42,9 +44,9 @@ label {
 }
 
 input[type="text"],
-input[type="password"],
 #todo-input {
     padding: 10px;
+    width: 100%;
     margin-bottom: 15px;     
     font-size: 16px;   
     border-radius: 6px; 
@@ -58,9 +60,39 @@ input::placeholder {
   font-family: "Oswald", sans-serif;
 }
 
+.password-wrapper{
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  display: block;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #006BB6;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+    
+.password-wrapper .toggle-btn {
+  position: absolute;
+  top: 35%;
+  right: 10px; 
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #006BB6;
+}
+
+
 button {
     padding: 10px;
-    /* margin-bottom: 15px;      */
     font-size: 16px;   
     border-radius: 10px; 
     border: 1px solid #006BB6;
@@ -78,6 +110,7 @@ button:hover{
 button.delete-btn:hover {
   background-color: #ff4d6d;
 }
+
 
 a{
   color: #FF596B;
