@@ -202,11 +202,12 @@ async function loadTodos(){
             textSpan.textContent = todo.title;
             textSpan.className = 'todo-text';
 
-
             let btnDiv = document.createElement('div')
             btnDiv.className = 'btn-container';
+
             let doneBtn = document.createElement("button");
             doneBtn.textContent= "Done";
+            doneBtn.className = 'done-btn';
             doneBtn.onclick = () => {
                 doneTodo(todo._id, !todo.done);
             };
@@ -218,6 +219,17 @@ async function loadTodos(){
                 deleteTodo(todo._id);
             };
 
+            let editBtn = document.createElement("button");
+            editBtn.textContent= "Edit";
+            editBtn.className = 'edit-btn'
+            editBtn.onclick = () => {
+                const newTitle = prompt("Please enter a new todo title", todo.title);
+                if (newTitle !== null && newTitle.trim() !== "") {
+                    editTodo(todo._id, newTitle);
+                }
+
+            };
+
             if (todo.done) {
                 textSpan.style.textDecoration = 'line-through';
                 textSpan.style.opacity = 0.6;
@@ -225,6 +237,7 @@ async function loadTodos(){
             }
 
             // else if (!todo.done) {
+            btnDiv.appendChild(editBtn);
             btnDiv.appendChild(doneBtn);
             btnDiv.appendChild(deleteBtn);
         
@@ -289,6 +302,30 @@ async function deleteTodo(id) {
     }
 }
 
+
+async function editTodo(id, newTitle){
+    const token = localStorage.getItem("token");
+    try {
+        const response = await fetch(`http://localhost:3004/todos/${id}/title`, {
+            method: "PUT",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({ title: newTitle })
+        });
+        if (response.ok){
+            console.log('Todo edited successfully');
+            loadTodos();
+        }
+        else {
+            console.error('Failed to edit the todo:', response.status);
+        }
+    }
+    catch(error){
+        console.error('Error editing todo:', error);
+    }
+}
 
 
 function initializeApp() {

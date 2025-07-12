@@ -37,20 +37,21 @@ router.post("/", async function (req,res) {
     })
 });
 
-    router.get("/", async function(req,res) {
-        const userId = req.userId;
-        try {
-            const todos = await TodoModel.find({ userId: userId });
-            res.json({ todos }) // Gets all the todo of the found user 
-        }
-        catch(error){
-            res.status(500).json({
-                msg: "Error fetching todos",
-                error: error.message,
-            });
-        }
-        
-    });
+
+router.get("/", async function(req, res) {
+    const userId = req.userId;
+    try {
+        const todos = await TodoModel.find({ userId: userId });
+        res.json({ todos }) // Gets all the todo of the found user 
+    }
+    catch(error){
+        res.status(500).json({
+            msg: "Error fetching todos",
+            error: error.message,
+        });
+    }
+    
+});
 
 
 router.delete("/:id", async function(req,res) {
@@ -138,7 +139,7 @@ router.put("/:id/title", async function(req,res) {
         }
 
         res.json({
-            msg: "Todo title successfully updated.",
+            message: "Todo title successfully updated.",
         });
     }
     catch(error){
