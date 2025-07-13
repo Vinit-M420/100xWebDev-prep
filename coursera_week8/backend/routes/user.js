@@ -3,12 +3,14 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const { UserModel } = require("../db");
 const { zod } = require("zod");
-router.use(express.json());
 
+router.use(express.json());
 
 router.post("/signup", async function (req, res) {
     const username = req.body.username;
     const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
 
     let user = await UserModel.findOne({ username: username })
     if (user){
@@ -18,7 +20,9 @@ router.post("/signup", async function (req, res) {
         const hashedPassword = await bcrypt.hash(password, 5);
         await UserModel.create({
             username: username,
-            password: hashedPassword
+            password: hashedPassword,
+            firstName: firstName,
+            lastName: lastName
         });
         res.status(200).json({ message: "User created successfully!" })
     }
@@ -44,7 +48,7 @@ router.post("/signin", async function (req, res) {
     try{
         const passwordMatch = await bcrypt.compare(password, user.password); 
         if (passwordMatch){
-            const token = jwt.sign( {id: user._id.toString( )} , process.env.SECRET);
+            const token = jwt.sign( {id: user._id.toString( )} , process.env.JWT_USER_SECRET);
             res.json({ token: token });
         }
         else{
@@ -60,5 +64,9 @@ router.post("/signin", async function (req, res) {
     }
 });
 
+
+router.get("/purchases", async function (req, res) {
+    
+});
 
 module.exports = router;
