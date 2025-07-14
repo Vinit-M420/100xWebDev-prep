@@ -7,7 +7,7 @@ function userAuth(req,res,next){
     const authHeader = req.headers.authorization;
 
     try{
-        const token = authHeader.split(" ")[1]
+        const token = authHeader; //.split(" ")[1]
         jwt.verify( token, JWT_USER_SECRET, (err, user) => {
             if (err){
                 res.status(403).json({ message: "Forbidden: Invalid User" })
@@ -26,7 +26,7 @@ function userAuth(req,res,next){
 function adminAuth(req,res,next){
     const authHeader = req.headers.authorization;
       try{
-        const token = authHeader.split(" ")[1]
+        const token = authHeader; //.split(" ")[1]
         jwt.verify( token, JWT_ADMIN_SECRET, (err, admin) => {
             if (err){
                 res.status(403).json({ message: "Forbidden: Invalid Admin" })

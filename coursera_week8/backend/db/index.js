@@ -16,14 +16,14 @@ const Schema = mongoose.Schema;
 const ObjectId = mongoose.ObjectId;
 
 const User = new Schema({
-    username: { type: String, unique: true },
+    email: { type: String, unique: true },
     password: String,
     firstName: String,
     lastName: String
 });
 
 const Admin = new Schema({
-    username: { type: String, unique: true },
+    email: { type: String, unique: true },
     password: String,
     firstName: String,
     lastName: String
@@ -35,18 +35,19 @@ const Course = new Schema({
     title: String,
     description: String,
     price: Number,
-    creatorId: ObjectId,
-    imageURL: String
+    imageURL: String,
+    adminId: ObjectId
+    
 });
 
 const Purchase = new  Schema({
     courseId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Course'
+    ref: 'course'
     },
     userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'user'
     }
 });
 
