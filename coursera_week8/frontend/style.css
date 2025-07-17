@@ -1,5 +1,5 @@
 body{
-    background-color: black;
+    background: linear-gradient(to bottom, #0d1117, #111827);
     color: white;
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
@@ -23,17 +23,27 @@ body{
     justify-content: space-between; 
     padding: 0 50px;
     border-bottom: solid 0.5px #242424;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.2);
     position: fixed; /* Keep navbar at top */
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
-    
+    z-index: 1000;  
+}
+
+#navTitle{
+    cursor: pointer;
+    text-decoration: none;
 }
 
 #navButtons{
     padding-top: 15px;
+}
+
+.fa-moon{
+    margin-right: 15px;
+    cursor: pointer;
+    border-radius: 7px;
 }
 
 button{
@@ -50,6 +60,7 @@ button{
     background-color: white;
     color: black;
     border: 1px solid #e5e7eb; 
+    margin-right: 5px;
 }
 
 #login-btn:hover {
@@ -68,6 +79,9 @@ button{
     border-color: #1e40af;
 }
 
+.hidden {
+    display: none !important;
+}
 
 .container {
     display: flex;
@@ -85,8 +99,27 @@ button{
     text-align: center;
     padding: 40px;
     max-width: 600px;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    /* background-color: rgba(0, 0, 0, 0.8);  */
     
+}
+
+.panel-type {
+    font-weight: bold;
+    font-size: 12px;
+    padding: 2px 18px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: inline-block;
+    /* letter-spacing: 2px; */
+}
+
+.user-panel {
+    background: linear-gradient(to right, #1d4ed8, #3b82f6);
+    color: white;
+}
+.admin-panel {
+    background: linear-gradient(to right, #6d28d9, #a78bfa);
+    color: white;
 }
 
 .login-container, .signup-container {
@@ -95,39 +128,60 @@ button{
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 40px;
+    padding: 30px;
     max-width: 400px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+    background: rgba(29, 78, 216, 0.2); /* #1d4ed8, 85% opacity */
+    border: 2px solid #3b82f6;
     border-radius: 12px;
     border: 1px solid #333;
 }
 
-.login-container h3 , .signup-container h3 {
+.admin-signup-container, .admin-login-container{
+    background: rgba(109, 40, 217, 0.2); /* #6d28d9 (violet-700) */
+    border: 2px solid #a78bfa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.login-container h3 , .signup-container h3,
+.admin-signup-container h3, .admin-login-container h3 {
     margin: 0 0 5px 0;
     font-size: 30px;
 }
 
-.login-container h4, .signup-container h4 {
-    margin: 0 0 30px 0;
+.login-container h4, .signup-container h4,
+.admin-signup-container h4, .admin-login-container h4 {
+    margin: 0 0 20px 0;
     font-size: 20px;
     /* margin-bottom: 30px; */
 }
 
-.login-container form, .signup-container form{
+.login-container form, .signup-container form,
+.admin-signup-container form, .admin-login-container form{
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.login-container label, .signup-container label{
+.login-container label, .signup-container label ,
+.admin-signup-container label, .admin-login-container label{
     text-align: left;
     font-size: 14px;
     margin-bottom: 5px;
 }
 
-.login-container input, .signup-container input {
+.login-container input, .signup-container input,
+.admin-signup-container input, .admin-login-container input {
     padding: 12px;
     border: 1px solid #333;
     border-radius: 6px;
@@ -138,25 +192,38 @@ button{
 }
 
 .login-container input::placeholder, 
-.signup-container input::placeholder {
+.signup-container input::placeholder,
+.admin-signup-container input::placeholder, 
+.admin-login-container input::placeholder{
     color: #7a7a7a;
 }
 
-/* .password-wrapper {
+.password-wrapper {
     position: relative;
+    width: 100%;
     display: flex;
     align-items: center;
-} */
+}
 
-/* 
-.toggle-btn {
-    position: absolute;
-    right: 10px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-} */
+.password-wrapper input {
+  width: 100%;
+  /* padding-right: 40px;  */
+  /* Make space for the icon */
+}
+
+.password-wrapper i {
+  position: absolute;
+  right: 12px;
+  top: 45%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.password-wrapper i:hover {
+  color: #333;
+}
 
 #login-submit-btn , #signup-submit-btn {
     padding: 12px;
@@ -174,7 +241,7 @@ button{
 }
 
 .login-container a, .signup-container a {
-    color: #0245ff;
+    color:  #0245ff;
     text-decoration: none;
 }
 
@@ -182,6 +249,14 @@ button{
     text-decoration: underline;
 }
 
+.admin-login-container a, .admin-signup-container a {
+    color:  #6000fb;
+    text-decoration: none;
+}
+
+.admin-login-container a:hover, .admin-signup-container a:hover{
+    text-decoration: underline;
+}
 
 #bigTitle {
     margin: 0 0 25px 0; 
@@ -206,4 +281,16 @@ button{
     transform: translateY(-1px); /* Subtle lift effect */
 }
 
+#mainAdminBtn {
+    padding: 15px 40px;
+    background-color: white;
+    color: black;
+    border: none; 
+    font-size: 1rem; 
+}
 
+#mainAdminBtn:hover{
+    background-color: #e5e7eb; 
+    border-color: #9ca3af;
+    transform: translateY(-1px); /* Subtle lift effect */
+}
