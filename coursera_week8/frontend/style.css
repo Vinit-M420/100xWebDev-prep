@@ -28,7 +28,9 @@ body{
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;  
+    z-index: 1000;
+    /* height: 64px; */
+    
 }
 
 #navTitle{
@@ -88,7 +90,9 @@ button{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding-top: 10px; /* Account for fixed navbar */
+    z-index: 2; 
+    min-height: calc(100vh - 70px);  /* 70px matches navbar height + gap */
+    padding-top: 70px;
 }
 
 .main{
@@ -128,28 +132,28 @@ button{
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 30px;
+    padding: 25px;
     max-width: 400px;
     width: 100%;
     background: rgba(29, 78, 216, 0.2); /* #1d4ed8, 85% opacity */
-    border: 2px solid #3b82f6;
+    border: 1px solid #3b82f6;
     border-radius: 12px;
-    border: 1px solid #333;
 }
+
 
 .admin-signup-container, .admin-login-container{
     background: rgba(109, 40, 217, 0.2); /* #6d28d9 (violet-700) */
-    border: 2px solid #a78bfa;
+    border: 1px solid #a78bfa;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 30px;
+    padding: 25px;
     max-width: 400px;
     width: 100%;
     border-radius: 12px;
-    border: 1px solid #333;
+    /* border: 0.5px solid #333; */
 }
 
 .login-container h3 , .signup-container h3,
@@ -247,6 +251,10 @@ button{
 
 .login-container a:hover, .signup-container a:hover{
     text-decoration: underline;
+}
+
+.response-message{
+    font-size: 10px; margin: 0;
 }
 
 .admin-login-container a, .admin-signup-container a {
