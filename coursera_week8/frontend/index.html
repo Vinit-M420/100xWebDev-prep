@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>100xCoursera</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
@@ -46,7 +47,7 @@
                 <label for="login-password">Password</label>
                 <div class="password-wrapper">
                     <input type="password" id="login-password" placeholder="Enter your password" required/>
-                    <i class="fa-regular fa-eye" id="togglePassword"></i>
+                    <i class="fa-regular fa-eye togglePassword" data-target="login-password"></i>
                 </div>
                 <button type="submit" id="login-submit-btn">Login</button>
             </form>
@@ -71,7 +72,7 @@
                 <label for="signup-password">Password</label>
                 <div class="password-wrapper">
                     <input type="password" id="signup-password" placeholder="*********" required />
-                    <i class="fa-regular fa-eye" id="togglePassword"></i>
+                    <i class="fa-regular fa-eye togglePassword" data-target="signup-password"></i>
                 </div>
                 <button type="submit" id="signup-submit-btn">Signup</button>
             </form>
@@ -96,7 +97,7 @@
                 <label for="asignup-password">Password</label>
                 <div class="password-wrapper">
                     <input type="password" id="asignup-password" placeholder="*********" required />
-                    <i class="fa-regular fa-eye" id="togglePassword"></i>
+                    <i class="fa-regular fa-eye togglePassword" data-target="asignup-password"></i>
                 </div>
                 <button type="submit" id="asignup-submit-btn">Signup</button>
             </form>
@@ -116,7 +117,7 @@
                 <label for="alogin-password">Password</label>
                 <div class="password-wrapper">
                     <input type="password" id="alogin-password" placeholder="Enter your password" required/>
-                    <i class="fa-regular fa-eye" id="togglePassword"></i>
+                    <i class="fa-regular fa-eye togglePassword" data-target="alogin-password"></i>
                 </div>
                 <button type="submit" id="alogin-submit-btn">Login</button>
             </form>
@@ -126,11 +127,19 @@
             <p class="response-message" id="admin-login-resp"></p>
         </div>
 
-        <div class="courses hidden">
-
-        </div>
-    
+        
     </div>
+        
+    <div class="courses">  
+    </div>
+
+    <div class="admin hidden">
+            <h2>Your Dashboard</h2><br>
+            <div class="admin-courses"></div>
+    </div>
+
+    
+
     <script src="script.js"></script>
 </body>
 </html>
