@@ -1,228 +1,172 @@
-// require("dotenv").config();
 let coursesFetched = false;
 
 document.addEventListener('DOMContentLoaded', function() {
+    styleBrandNames();
     showAdminOrUser();
-    const elements = document.querySelectorAll('h2, h3, h4, p, span, label');
-    elements.forEach(element => {
-        if (element.innerHTML.includes('100xCoursera')) {
-            element.innerHTML = element.innerHTML
-                .replace(/100xCoursera, because/g, '<span class="brand-name">100xCoursera,</span> because')
-                .replace(/100xCoursera/g, '<span class="brand-name">100xCoursera</span>')
-                .replace(/100xCoursera/g, '<span class="brand-name">100xCoursera</span>');
-        }
-    });
-    
+    setupPasswordToggles();
+    setupFormListeners();
+    setupNavigationListeners();
+    setupModal();
+    setupCoursePreview();
+});
 
-    // USER Sign Up Form
-    const signUpForm = document.getElementById("signup-form");
-    if (signUpForm){
-        signUpForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
+    function styleBrandNames() {
+        const elements = document.querySelectorAll('h2, h3, h4, p, span, label');
+        elements.forEach(element => {
+            if (element.innerHTML.includes('100xCoursera')) {
+                element.innerHTML = element.innerHTML
+                    .replace(/100xCoursera, because/g, '<span class="brand-name">100xCoursera,</span> because')
+                    .replace(/100xCoursera/g, '<span class="brand-name">100xCoursera</span>')
+            }
+        });
+    }
 
-            const fname = document.getElementById("signup-fname").value;
-            const lname = document.getElementById("signup-lname").value;
-            const email = document.getElementById("signup-email").value;
-            const password = document.getElementById("signup-password").value;
-            console.log({ fname, lname, email, password });
+    async function handleSignup(e, apiEndpoint, formSelectors, responseSelector, switchContainer){
+        e.preventDefault();
+        const {fnameId, lnameId, emailId, passwordId} = formSelectors;
+        const fname = document.getElementById(fnameId).value;
+        const lname = document.getElementById(lnameId).value;
+        const email = document.getElementById(emailId).value;
+        const password = document.getElementById(passwordId).value;
 
-            try{
-                const response = await fetch(`http://localhost:3001/api/v1/user/signup`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email: email, password: password, 
+        try{
+            const response = await fetch(`http://localhost:3001/api/v1/${apiEndpoint}` , {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: email, password: password, 
                         firstName: fname, lastName: lname })
-                });
-
-                const result = await response.json();
-
-                if (response.ok){
-                    // console.log(response);
-                    console.log('Signup successful, switching to signin');
-                    document.getElementById("login-resp").innerHTML = result.message || 'Signup Successful. You can sign in now'
-                    document.querySelector(".signup-container").classList.add("hidden");
-                    document.querySelector(".login-container").classList.remove("hidden");
-                }
-                else document.getElementById("signup-resp").innerHTML = result.message || 'Signup failed'
-                
-            }
-            catch(error){
-                document.getElementById('signup-resp').innerText = 'Error during signup';
-            }
-
-        });
-    };
-
-    // USER Login Form
-    const LoginForm = document.getElementById("login-form");
-    if (LoginForm){
-        LoginForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const email = document.getElementById("login-email").value;
-            const password = document.getElementById("login-password").value;
-            try{
-                const response = await fetch("http://localhost:3001/api/v1/user/signin", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email: email, password: password })
-                });
-
-                const result = await response.json();
-
-                if (response.ok){
-                    // console.log(response);
-                    // console.log('Login successful');
-                    localStorage.setItem("UserAuth", result.token);
-                    document.getElementById("login-resp").innerHTML = result.message || 'Login Successful';
-                    
-                }
-                else document.getElementById("login-resp").innerHTML = result.message || 'Login failed'
-                
-            }
-            catch(error){
-                document.getElementById('login-resp').innerText = 'Error during Login';
-            }
-
-        });
-    };
-    
-    // ADMIN Sign up form
-    const AdminsignUpForm = document.getElementById("admin-signup-form");
-    if (AdminsignUpForm){
-        AdminsignUpForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const fname = document.getElementById("asignup-fname").value;
-            const lname = document.getElementById("asignup-lname").value;
-            const email = document.getElementById("asignup-email").value;
-            const password = document.getElementById("asignup-password").value;
-            try{
-                const response = await fetch(`http://localhost:3001/api/v1/admin/signup`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email: email, password: password, 
-                        firstName: fname, lastName: lname })
-                });
-
-                const result = await response.json();
-
-                if (response.ok){
-                    // console.log(response);
-                    console.log('Signup successful, switching to signin');
-                    document.getElementById("admin-login-resp").innerHTML = result.message || 'Signup Successful. You can sign in now'
-                    document.querySelector(".admin-signup-container").classList.add("hidden");
-                    document.querySelector(".admin-login-container").classList.remove("hidden");
-                }
-                else document.getElementById("admin-signup-resp").innerHTML = result.message || 'Signup failed'
-                
-            }
-            catch(error){
-                document.getElementById('admin-signup-resp').innerText = 'Error during Admin signup';
-            }
-
-        });
-    };
-
-    // ADMIN Login Form
-    const AdminLoginForm = document.getElementById("admin-login-form");
-    if (AdminLoginForm){
-        AdminLoginForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const email = document.getElementById("alogin-email").value;
-            const password = document.getElementById("alogin-password").value;
-            try{
-                const response = await fetch("http://localhost:3001/api/v1/admin/signin", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email: email, password: password })
-                });
-
-                const result = await response.json();
-
-                if (response.ok){
-                    // console.log(response);
-                    // console.log('Login successful');
-                    localStorage.setItem("AdminAuth", result.token);
-                    document.getElementById("admin-login-resp").innerHTML = result.message || 'Login Successful';
-                    showAdminOrUser();          
-                }
-                else document.getElementById("admin-login-resp").innerHTML = result.message || 'Login failed'
-                
-            }
-            catch(error){
-                document.getElementById('admin-login-resp').innerText = 'Error during Admin Login';
-                console.log(error.message)
-            }
-
-        });
-
-        
-        
-        document.getElementById("mainBtn").addEventListener("click", async function (){
-            if (!coursesFetched){
-            
-            // const adminHeader = document.querySelector(".admin-header");
-            // const adminName = await fetch("http://localhost:3001/api/v1/admin/me" , {
-            //     method: "GET"
-            // });
-            // const adminNameData= await adminName.json();
-            // const adminFname = document.createElement('h3');
-            // adminFname.textContent = `Hii ${adminNameData.firstName}` ;
-            // adminHeader.appendChild(adminFname);
-
-            const coursesDiv = document.querySelector(".courses");
-            // const heading = document.createElement("h4");
-            // heading.textContent = "Courses"
-            // coursesDiv.appendChild(heading);
-
-            const response = await fetch("http://localhost:3001/api/v1/course/preview" , {
-                method: "GET"
             });
+            const result = await response.json();
+            const respEl = document.getElementById(responseSelector);
 
-            const data = await response.json();
-            const courses = data.courses; 
-            
-            courses.forEach(course => {
-                let courseTitle = document.createElement('h3');
-                let courseDesc = document.createElement('p');
-                let coursePrice = document.createElement('p');
-                
-                courseTitle.textContent = course.title;
-                courseDesc.textContent = course.description;
-                coursePrice.textContent = `Price: ${course.price}`;
+            if (response.ok){
+                respEl.innerHTML = result.message || 'Signup Successful. You can sign in now';
+                document.querySelector(switchContainer.from).classList.add('hidden');
+                document.querySelector(switchContainer.to).classList.remove('hidden');
+            } else {
+                respEl.innerHTML = result.message || 'Signup failed';
+            }
+        }
+        catch(error){
+            document.getElementById(responseSelector).innerText = 'Error during signup';
+            console.error(error);
+        }
+    }
 
-                const SingleC = document.createElement('div');
-                SingleC.appendChild(courseTitle);
-                SingleC.appendChild(courseDesc);
-                SingleC.appendChild(coursePrice);
-                SingleC.className = "course";
-                coursesDiv.appendChild(SingleC);
-                coursesFetched = true;
-            })
-        }    
-        })
+    async function handleLogin(e, apiEndpoint, emailId, passwordId, responseSelector, tokenKey){
+        e.preventDefault();
+        const email = document.getElementById(emailId).value;
+        const password = document.getElementById(passwordId).value;
 
+        try{
+            const response = await fetch(`http://localhost:3001/api/v1/${apiEndpoint}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+                });
+            const result = await response.json();
+            const respEl = document.getElementById(responseSelector);
+            if (response.ok) {
+                localStorage.setItem(tokenKey, result.token);
+                respEl.innerHTML = result.message || 'Login Successful';
+                showAdminOrUser();
+            } else {
+                respEl.innerHTML = result.message || 'Login failed';
+            }
+        }
+        catch(error){
+            document.getElementById(responseSelector).innerText = 'Error during Login';
+            console.error(error);
+        }
+    }    
+
+    function setupFormListeners(){
+        // USER Sign Up Form
+        const signUpForm = document.getElementById('signup-form');
+        if (signUpForm){
+            signUpForm.addEventListener("submit", e => handleSignup(e, "user/signup",
+                {fnameId: "signup-fname", lnameId: "signup-lname", 
+                emailId: "signup-email" , passwordId: "signup-password"},
+                "signup-resp", { from: '.signup-container', to: '.login-container' }
+            ));
+        };
+         // USER Login Form
+        const loginForm = document.getElementById("login-form");
+        if (loginForm){
+        loginForm.addEventListener("submit", e => handleLogin(e, "user/signin",
+            "login-email", "login-password", "login-resp", 'UserAuth'
+        ));
+        };
+        // ADMIN Sign Up Form
+        const AdminsignUpForm = document.getElementById('admin-signup-form');
+        if (AdminsignUpForm){
+            AdminsignUpForm.addEventListener("submit", e => handleSignup(e, "admin/signup",
+                {fnameId: "asignup-fname", lnameId: "asignup-lname", 
+                emailId: "asignup-email" , passwordId: "asignup-password"},
+                "admin-signup-resp", { from: '.admin-signup-container', to: '.admin-login-container' }
+            ));
+        };
+        // ADMIN Login Form
+        const AdminLoginForm = document.getElementById("admin-login-form");
+        if (AdminLoginForm){
+        AdminLoginForm.addEventListener("submit", e => handleLogin(e, "admin/signin",
+            "alogin-email", "alogin-password", "admin-login-resp", 'AdminAuth'
+        ));
     };
+    }
+        
+function setupCoursePreview() {    
+    document.getElementById("mainBtn").addEventListener("click", async function (){
+        if (!coursesFetched){
+        const coursesDiv = document.querySelector(".courses");
 
+        const response = await fetch("http://localhost:3001/api/v1/course/preview" , {
+            method: "GET"
+        });
+
+        const data = await response.json();
+        const courses = data.courses; 
+        
+        courses.forEach(course => {
+            let courseTitle = document.createElement('h3');
+            let courseDesc = document.createElement('p');
+            let coursePrice = document.createElement('p');
+            
+            courseTitle.textContent = course.title;
+            courseDesc.textContent = course.description;
+            coursePrice.textContent = `Price: ${course.price}`;
+
+            const SingleC = document.createElement('div');
+            SingleC.appendChild(courseTitle);
+            SingleC.appendChild(courseDesc);
+            SingleC.appendChild(coursePrice);
+            SingleC.className = "course";
+            coursesDiv.appendChild(SingleC);
+            coursesFetched = true;
+        })
+    }    
+    })
+}
+
+function setupPasswordToggles(){
     const toggles = document.querySelectorAll('.togglePassword');
     toggles.forEach(toggle => {
         toggle.addEventListener('click', function () {
         const inputId = this.getAttribute('data-target');
         const input = document.getElementById(inputId);
 
-      if (input.type === 'password') {
+    if (input.type === 'password') {
             input.type = 'text';
             this.classList.remove('fa-eye');
             this.classList.add('fa-eye-slash'); // Show slashed icon when visible
-        } else {
+    } else{
             input.type = 'password';
             this.classList.remove('fa-eye-slash');
             this.classList.add('fa-eye');
         }
         });
     });
-
-});
+}
 
 
 function showAdminOrUser(){
@@ -231,113 +175,117 @@ function showAdminOrUser(){
     if (AdminToken){
         document.querySelector(".container").classList.add("hidden");
         document.querySelector(".admin").classList.remove("hidden");
+        document.querySelector("#navButtons").classList.add("disabled-btn")
         loadAdminCourses();
     } 
     else if (UserToken) {
         document.querySelector(".container").classList.add("hidden");
         document.querySelector(".user").classList.remove("hidden");
     } 
-    else{
-        document.querySelector(".container").classList.remove("hidden");
-    }
+    else document.querySelector(".container").classList.remove("hidden");
 }
+
 async function loadAdminCourses() {
-            console.log('loadAdminCourses() called');
-            const AdminToken = localStorage.getItem('AdminAuth');
-            if (!AdminToken) {
-                console.error('No admin token found');
-                return;
-            }
+    console.log('loadAdminCourses() called');
+    const AdminToken = localStorage.getItem('AdminAuth');
+    if (!AdminToken) {
+        console.error('No admin token found');
+        return;
+    }
 
-            try {
-                const adminHeader = document.querySelector(".admin-header");
-                
-                // Check if admin name already exists before making API call
-                const existingName = adminHeader.querySelector('h3');
-                if (!existingName) {
-                    const adminName = await fetch("http://localhost:3001/api/v1/admin/me", {
-                        method: "GET",
-                        headers: {
-                            "Authorization": `${AdminToken}`
-                        }
-                    });
-                    
-                    const adminNameData = await adminName.json();
-                    const adminFname = document.createElement('h3');
-                    adminFname.textContent = `Hi ${adminNameData.firstName}`;
-                    adminHeader.appendChild(adminFname);
+    try {
+        const adminHeader = document.querySelector(".admin-header");
+        
+        // Check if admin name already exists before making API call
+        const existingName = adminHeader.querySelector('h3');
+        if (!existingName) {
+            const adminName = await fetch("http://localhost:3001/api/v1/admin/me", {
+                method: "GET",
+                headers: {
+                    "Authorization": `${AdminToken}`
                 }
-
-                const response = await fetch("http://localhost:3001/api/v1/admin/course/bulk", {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `${AdminToken}`
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                const { courses } = await response.json();
-                
-                const adminCoursesDiv = document.querySelector(".admin-courses");
-                adminCoursesDiv.innerHTML = '';
-
-                if (!courses || courses.length === 0) {
-                    let noCourse = document.createElement("h5");
-                    noCourse.textContent = "You have no courses published yet";
-                    adminCoursesDiv.appendChild(noCourse);
-                    return;
-                }
-
-                courses.forEach(course => {
-                    let courseTitle = document.createElement('h3');
-                    let courseDesc = document.createElement('p');
-                    let coursePrice = document.createElement('p');
-                    let editBtn = document.createElement('button');
-                    let deleteBtn = document.createElement('button');
-
-                    courseTitle.textContent = course.title;
-                    courseDesc.textContent = course.description;
-                    coursePrice.textContent = `Price: $${course.price}`;
-
-                    editBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit';
-                    deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
-
-                    editBtn.style.marginRight = '10px';
-                    editBtn.style.color = 'black';
-                    editBtn.style.border = 'none';
-                    editBtn.style.padding = '8px 12px';
-                    editBtn.style.borderRadius = '4px';
-                    editBtn.style.cursor = 'pointer';
-
-                   
-
-                    deleteBtn.style.backgroundColor = '#dc3545';
-                    deleteBtn.style.color = 'white';
-                    deleteBtn.style.border = 'none';
-                    deleteBtn.style.padding = '8px 12px';
-                    deleteBtn.style.borderRadius = '4px';
-                    deleteBtn.style.cursor = 'pointer';
-                    
-
-                    const SingleC = document.createElement('div');
-                    SingleC.appendChild(courseTitle);
-                    SingleC.appendChild(courseDesc);
-                    SingleC.appendChild(coursePrice);
-                    SingleC.appendChild(editBtn);
-                    SingleC.appendChild(deleteBtn);
-                    SingleC.className = "course";
-                    adminCoursesDiv.appendChild(SingleC);
-                });
-
-            } catch (error) {
-                console.log('Error in fetching the courses:', error.message);
-            }
+            });
+            
+            const adminNameData = await adminName.json();
+            const adminFname = document.createElement('h3');
+            adminFname.textContent = `Hi ${adminNameData.firstName}`;
+            adminHeader.appendChild(adminFname);
         }
 
-const modal = document.getElementById('courseModal');
+        const response = await fetch("http://localhost:3001/api/v1/admin/course/bulk", {
+            method: "GET",
+            headers: { "Authorization": `${AdminToken}` }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const { courses } = await response.json();
+        
+        const adminCoursesDiv = document.querySelector(".admin-courses");
+        adminCoursesDiv.innerHTML = '';
+
+        if (!courses || courses.length === 0) {
+            let noCourse = document.createElement("h5");
+            noCourse.textContent = "You have no courses published yet";
+            adminCoursesDiv.appendChild(noCourse);
+            return;
+        }
+
+        courses.forEach(course => {
+            let courseTitle = document.createElement('h3');
+            let courseDesc = document.createElement('p');
+            let coursePrice = document.createElement('p');
+            let editBtn = document.createElement('button');
+            let deleteBtn = document.createElement('button');
+
+            courseTitle.textContent = course.title;
+            courseDesc.textContent = course.description;
+            coursePrice.textContent = `Price: ${course.price}`;
+
+            editBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit';
+            deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
+
+            editBtn.style.marginRight = '10px';
+            editBtn.style.color = 'black';
+            editBtn.style.border = 'none';
+            editBtn.style.padding = '8px 12px';
+            editBtn.style.borderRadius = '4px';
+            editBtn.style.cursor = 'pointer'; 
+
+            deleteBtn.style.backgroundColor = '#dc3545';
+            deleteBtn.style.color = 'white';
+            deleteBtn.style.border = 'none';
+            deleteBtn.style.padding = '8px 12px';
+            deleteBtn.style.borderRadius = '4px';
+            deleteBtn.style.cursor = 'pointer';
+
+            deleteBtn.addEventListener("click", () => {
+                console.log('Delete course:', course._id);
+                if (confirm(`Are you sure you want to delete "${course.title}"?`)) {
+                    deleteCourse(course._id, AdminToken);
+                }    
+            });
+            
+
+            const SingleC = document.createElement('div');
+            SingleC.appendChild(courseTitle);
+            SingleC.appendChild(courseDesc);
+            SingleC.appendChild(coursePrice);
+            SingleC.appendChild(editBtn);
+            SingleC.appendChild(deleteBtn);
+            SingleC.className = "course";
+            adminCoursesDiv.appendChild(SingleC);
+        });
+
+    } catch (error) {
+        console.log('Error in fetching the courses:', error.message);
+    }
+}
+
+function setupModal() {
+        const modal = document.getElementById('courseModal');
         const addCoursesBtn = document.getElementById('add-courses');
         const closeModalBtn = document.getElementById('closeModal');
         const cancelBtn = document.getElementById('cancelBtn');
@@ -417,81 +365,65 @@ const modal = document.getElementById('courseModal');
                 alert('Error creating course. Please try again.');
             }
         });
+    }
 
+async function deleteCourse(courseId, token){
+    try{
+        const response = await fetch("http://localhost:3001/api/v1/admin/course" , {
+            method: "DELETE",
+            headers: {"Authorization": `${token}`, 
+                      "Content-Type": "application/json"},
+            body: JSON.stringify({ courseId: courseId })   
+    });
+    
+        if (response.ok){
+            const result = await response.json();
+            alert('Course deleted successfully!');
+            loadAdminCourses();
+        }
+        else {
+            const error = await response.json();
+            alert(`Error: ${error.message || 'Failed to delete course'}`);
+        }
+    }
+    catch(error){
+        console.error('Error deleting course:', error);
+        alert('Error deleting course. Please try again.');
+    }
+}
 
-document.getElementById("login-btn").addEventListener("click", function() {
-     document.querySelector(".main").classList.add("hidden");
-     document.querySelector(".signup-container").classList.add("hidden");
-     document.querySelector(".login-container").classList.remove("hidden");
-     document.querySelector(".admin-login-container").classList.add("hidden");
-     document.querySelector(".admin-signup-container").classList.add("hidden");
-     document.querySelector(".courses").classList.add("hidden");
-});
+function setupNavigationListeners() {
+  const hideAll = () => {
+    document.querySelectorAll('.main, .login-container, .signup-container, .admin-login-container, .admin-signup-container, .courses')
+      .forEach(el => el.classList.add('hidden'));
+  };
 
-document.getElementById("signup-btn").addEventListener("click", function() {
-    document.querySelector(".main").classList.add("hidden");
-    document.querySelector(".login-container").classList.add("hidden");
-    document.querySelector(".signup-container").classList.remove("hidden");
-    document.querySelector(".admin-login-container").classList.add("hidden");
-    document.querySelector(".admin-signup-container").classList.add("hidden");
-    document.querySelector(".courses").classList.add("hidden");
-});
+  document.getElementById('login-btn').addEventListener('click', () => 
+    { hideAll(); 
+      document.querySelector('.login-container').classList.remove('hidden'); });
 
-document.getElementById("show-login").addEventListener("click", function(e) {
-    e.preventDefault();
-    document.querySelector(".signup-container").classList.add("hidden");
-    document.querySelector(".login-container").classList.remove("hidden");
-    document.querySelector(".admin-login-container").classList.add("hidden");
-    document.querySelector(".admin-signup-container").classList.add("hidden");
-    document.querySelector(".courses").classList.add("hidden");
-});
+  document.getElementById('signup-btn').addEventListener('click', () => 
+    { hideAll(); document.querySelector('.signup-container').classList.remove('hidden'); });
 
-document.getElementById("show-signup").addEventListener("click", function(e) {
-    e.preventDefault();
-    document.querySelector(".login-container").classList.add("hidden");
-    document.querySelector(".signup-container").classList.remove("hidden");
-    document.querySelector(".admin-login-container").classList.add("hidden");
-    document.querySelector(".admin-signup-container").classList.add("hidden");
-    document.querySelector(".courses").classList.add("hidden");
-});
+  document.getElementById('show-login').addEventListener('click', e => 
+    { e.preventDefault(); hideAll(); document.querySelector('.login-container').classList.remove('hidden'); });
 
-document.getElementById("navTitle").addEventListener("click", function(e) {
-    e.preventDefault();
-    document.querySelectorAll(
-      ".main, .login-container, .signup-container, .admin-login-container, .admin-signup-container"
-    ).forEach(el => el.classList.add("hidden"));
-    document.querySelector(".main").classList.remove("hidden");
-    document.querySelector(".courses").classList.add("hidden");
-});
+  document.getElementById('show-signup').addEventListener('click', e => 
+    { e.preventDefault(); hideAll(); document.querySelector('.signup-container').classList.remove('hidden'); });
 
-document.getElementById("mainAdminBtn").addEventListener("click", function(e) {
-    e.preventDefault();
-    document.querySelector(".main").classList.add("hidden");
-    document.querySelector(".admin-login-container").classList.add("hidden");
-    document.querySelector(".admin-signup-container").classList.remove("hidden");
-    document.querySelector(".courses").classList.add("hidden");
-});
+  document.getElementById('navTitle').addEventListener('click', e => 
+    { e.preventDefault(); hideAll(); document.querySelector('.main').classList.remove('hidden'); });
 
-document.getElementById("show-admin-signup").addEventListener("click", function(e) {
-    e.preventDefault();
-    document.querySelector(".main").classList.add("hidden");
-    document.querySelector(".admin-login-container").classList.add("hidden");
-    document.querySelector(".admin-signup-container").classList.remove("hidden");
-    document.querySelector(".courses").classList.add("hidden");
-});
+  document.getElementById('mainAdminBtn').addEventListener('click', e => 
+    { e.preventDefault(); hideAll(); document.querySelector('.admin-signup-container').classList.remove('hidden'); });
 
+  document.getElementById('show-admin-signup').addEventListener('click', e => 
+    { e.preventDefault(); hideAll(); document.querySelector('.admin-signup-container').classList.remove('hidden'); });
 
-document.getElementById("show-admin-login").addEventListener("click", function(e) {
-    e.preventDefault();
-    document.querySelector(".main").classList.add("hidden");
-    document.querySelector(".admin-login-container").classList.remove("hidden");
-    document.querySelector(".admin-signup-container").classList.add("hidden");
-    document.querySelector(".courses").classList.add("hidden");
-});
+  document.getElementById('show-admin-login').addEventListener('click', e => 
+    { e.preventDefault(); hideAll(); document.querySelector('.admin-login-container').classList.remove('hidden'); });
 
-document.getElementById("admin-logout").addEventListener("click", function(e){
-    e.preventDefault();
-    console.log("admin logout btn clicked")
-    localStorage.clear("AdminAuth");
-    showAdminOrUser();
-})
+  document.getElementById('admin-logout').addEventListener('click', e => 
+    { e.preventDefault(); localStorage.removeItem('AdminAuth'); showAdminOrUser(); });
+}
+
