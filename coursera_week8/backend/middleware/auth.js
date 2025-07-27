@@ -10,7 +10,7 @@ function userAuth(req,res,next){
         const token = authHeader; //.split(" ")[1]
         jwt.verify( token, JWT_USER_SECRET, (err, user) => {
             if (err){
-                res.status(403).json({ message: "Forbidden: Invalid User" })
+                return res.status(403).json({ message: "Forbidden: Invalid User" })
             }
             req.userId = user.id;
             next();
@@ -18,7 +18,7 @@ function userAuth(req,res,next){
     }
     catch (error){
         console.log("No Authorization header provided"); 
-        res.status(401).json({ message: 'Unauthorized: No token provided', error: error.message });
+        return res.status(401).json({ message: 'Unauthorized: No token provided', error: error.message });
     }
 }
 

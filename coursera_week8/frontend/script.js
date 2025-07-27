@@ -160,6 +160,16 @@ document.addEventListener('DOMContentLoaded', function() {
         
         document.getElementById("mainBtn").addEventListener("click", async function (){
             if (!coursesFetched){
+            
+            // const adminHeader = document.querySelector(".admin-header");
+            // const adminName = await fetch("http://localhost:3001/api/v1/admin/me" , {
+            //     method: "GET"
+            // });
+            // const adminNameData= await adminName.json();
+            // const adminFname = document.createElement('h3');
+            // adminFname.textContent = `Hii ${adminNameData.firstName}` ;
+            // adminHeader.appendChild(adminFname);
+
             const coursesDiv = document.querySelector(".courses");
             // const heading = document.createElement("h4");
             // heading.textContent = "Courses"
@@ -227,59 +237,186 @@ function showAdminOrUser(){
         document.querySelector(".container").classList.add("hidden");
         document.querySelector(".user").classList.remove("hidden");
     } 
-}
-
-async function loadAdminCourses(){
-    console.log('loadAdminCourses() called');
-    const AdminToken = localStorage.getItem('AdminAuth');
-    try{
-        const response = await fetch("http://localhost:3001/api/v1/admin/course/bulk" , {
-            method: "GET",
-            headers : {
-                "Authorization": `${AdminToken}` 
-            }        
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const  { courses } = await response.json();
-        if (!courses){
-            console.error("No courses for this user")
-        }
-
-        if (courses.length === 0){
-            let noCourse = document.createElement("h5");
-            noCourse.textContent = "You have no course published yet"
-            document.querySelector(".admin").appendChild(noCourse);
-        }
-
-        const adminCoursesDiv = document.querySelector(".admin-courses");
-        adminCoursesDiv.innerHTML = '';
-
-        courses.forEach(course => {
-            let courseTitle = document.createElement('h3');
-                let courseDesc = document.createElement('p');
-                let coursePrice = document.createElement('p');
-                
-                courseTitle.textContent = course.title;
-                courseDesc.textContent = course.description;
-                coursePrice.textContent = `Price: ${course.price}`;
-
-                const SingleC = document.createElement('div');
-                SingleC.appendChild(courseTitle);
-                SingleC.appendChild(courseDesc);
-                SingleC.appendChild(coursePrice);
-                SingleC.className = "course";
-                adminCoursesDiv.appendChild(SingleC);
-        })
-    }catch(error){
-        console.log('Error in fetching the courses' ,error.message);
-        //res.json({ message : 'Error in fetching the courses', error: error.message})
+    else{
+        document.querySelector(".container").classList.remove("hidden");
     }
 }
+async function loadAdminCourses() {
+            console.log('loadAdminCourses() called');
+            const AdminToken = localStorage.getItem('AdminAuth');
+            if (!AdminToken) {
+                console.error('No admin token found');
+                return;
+            }
 
+            try {
+                const adminHeader = document.querySelector(".admin-header");
+                
+                // Check if admin name already exists before making API call
+                const existingName = adminHeader.querySelector('h3');
+                if (!existingName) {
+                    const adminName = await fetch("http://localhost:3001/api/v1/admin/me", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `${AdminToken}`
+                        }
+                    });
+                    
+                    const adminNameData = await adminName.json();
+                    const adminFname = document.createElement('h3');
+                    adminFname.textContent = `Hi ${adminNameData.firstName}`;
+                    adminHeader.appendChild(adminFname);
+                }
+
+                const response = await fetch("http://localhost:3001/api/v1/admin/course/bulk", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `${AdminToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const { courses } = await response.json();
+                
+                const adminCoursesDiv = document.querySelector(".admin-courses");
+                adminCoursesDiv.innerHTML = '';
+
+                if (!courses || courses.length === 0) {
+                    let noCourse = document.createElement("h5");
+                    noCourse.textContent = "You have no courses published yet";
+                    adminCoursesDiv.appendChild(noCourse);
+                    return;
+                }
+
+                courses.forEach(course => {
+                    let courseTitle = document.createElement('h3');
+                    let courseDesc = document.createElement('p');
+                    let coursePrice = document.createElement('p');
+                    let editBtn = document.createElement('button');
+                    let deleteBtn = document.createElement('button');
+
+                    courseTitle.textContent = course.title;
+                    courseDesc.textContent = course.description;
+                    coursePrice.textContent = `Price: $${course.price}`;
+
+                    editBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit';
+                    deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
+
+                    editBtn.style.marginRight = '10px';
+                    editBtn.style.color = 'black';
+                    editBtn.style.border = 'none';
+                    editBtn.style.padding = '8px 12px';
+                    editBtn.style.borderRadius = '4px';
+                    editBtn.style.cursor = 'pointer';
+
+                   
+
+                    deleteBtn.style.backgroundColor = '#dc3545';
+                    deleteBtn.style.color = 'white';
+                    deleteBtn.style.border = 'none';
+                    deleteBtn.style.padding = '8px 12px';
+                    deleteBtn.style.borderRadius = '4px';
+                    deleteBtn.style.cursor = 'pointer';
+                    
+
+                    const SingleC = document.createElement('div');
+                    SingleC.appendChild(courseTitle);
+                    SingleC.appendChild(courseDesc);
+                    SingleC.appendChild(coursePrice);
+                    SingleC.appendChild(editBtn);
+                    SingleC.appendChild(deleteBtn);
+                    SingleC.className = "course";
+                    adminCoursesDiv.appendChild(SingleC);
+                });
+
+            } catch (error) {
+                console.log('Error in fetching the courses:', error.message);
+            }
+        }
+
+const modal = document.getElementById('courseModal');
+        const addCoursesBtn = document.getElementById('add-courses');
+        const closeModalBtn = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const addCourseForm = document.getElementById('addCourseForm');
+
+        // Open modal
+        addCoursesBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+
+        // Close modal function
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+            addCourseForm.reset(); // Clear form
+        }
+
+        // Close modal events
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Handle form submission
+        addCourseForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const AdminToken = localStorage.getItem('AdminAuth');
+            if (!AdminToken) {
+                alert('No admin token found. Please login again.');
+                return;
+            }
+
+            const formData = new FormData(addCourseForm);
+            const courseData = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                price: parseFloat(formData.get('price')),
+                imageURL: formData.get('imageURL') || ''
+            };
+
+            try {
+                const response = await fetch('http://localhost:3001/api/v1/admin/course', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${AdminToken}`
+                    },
+                    body: JSON.stringify(courseData)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    alert('Course created successfully!');
+                    closeModal();
+                    // Reload courses to show the new one
+                    loadAdminCourses();
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.message || 'Failed to create course'}`);
+                }
+            } catch (error) {
+                console.error('Error creating course:', error);
+                alert('Error creating course. Please try again.');
+            }
+        });
 
 
 document.getElementById("login-btn").addEventListener("click", function() {
@@ -352,3 +489,9 @@ document.getElementById("show-admin-login").addEventListener("click", function(e
     document.querySelector(".courses").classList.add("hidden");
 });
 
+document.getElementById("admin-logout").addEventListener("click", function(e){
+    e.preventDefault();
+    console.log("admin logout btn clicked")
+    localStorage.clear("AdminAuth");
+    showAdminOrUser();
+})

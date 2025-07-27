@@ -178,4 +178,25 @@ router.delete("/course", async function (req, res) {
 
 });
 
+router.get("/me", async function (req, res) {
+    const adminId = req.adminId;
+    //const courseId = req.body.courseId;
+    try {
+        const adminData = await AdminModel.findOne({ _id: adminId });
+        
+        if (!adminData) {
+            return res.status(404).json({ message: "Admin not found" });
+        }
+        
+        res.json({ 
+            firstName: adminData.firstName, 
+            lastName: adminData.lastName 
+        });
+
+    }
+    catch(error){
+        res.status(403).json({ message: 'Error in Fetching the admin', error: error.message });
+    }
+})
+
 module.exports = router;
