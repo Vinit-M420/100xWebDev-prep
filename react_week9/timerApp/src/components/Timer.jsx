@@ -1,24 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react'
 
 export const Timer = () => {
-  const [seconds , setSeconds] = useState(0);
+  const [time , setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [lapCount, setLapCount] = useState([]);
+  // const [lapCount, setLapCount] = useState([]);
+  const [customMinutes , setCustomMinutes]= useState("");
+  const [customSeconds , setCustomSeconds]= useState("");
   const timerRef = useRef();
 
   useEffect(  () => {
-    if (isRunning){ 
+    if (isRunning && time > 0){ 
       timerRef.current = setInterval( () => {
-        setSeconds(sec => sec + 1)
+      setTime((sec) => {
+        if (sec > 1) return sec - 1;
+        
+        clearInterval(timerRef.current) 
+        setIsRunning(false);
+        return 0;
+      })
       } , 1000 );
     }
   
   return () => clearInterval(timerRef.current)
-  }, [isRunning])
+  }, [isRunning, time])
 
 
   const startTimer = () =>{
-    if (!isRunning) setIsRunning(true);
+    if (!isRunning && time > 0) setIsRunning(true);
   };
 
   const stopTimer = () => {
@@ -27,54 +35,62 @@ export const Timer = () => {
 
   const resetTimer = () =>{
       setIsRunning(false);
-      setSeconds(0);
-      useState([]);
+      setTime(0);
+      setCustomMinutes("");
+      setCustomSeconds("");
   };
 
-  const lapTimer = () => {
-  setLapCount((prev) => [...prev, { lap: prev.length + 1, time: seconds }]);
-  };
+   const applyCustomTime = () => {
+    const minutes = parseInt(customMinutes) || 0;
+    const seconds = parseInt(customSeconds) || 0;
+    const totalSec = (minutes * 60) + seconds;
+    if (totalSec > 0){
+      setTime(totalSec);
+      setIsRunning(false);
+      // setLapCount([]);
+      setCustomMinutes("");
+      setCustomSeconds("");
+    }
+    else {
+      alert("Please enter a valid time");
+    }
+  }
+
 
   return (
     <div>
         <div style={{textAlign:"center"}}>
-          
-          <h2>⏱ Timer: {seconds} sec</h2>
-          <ul style={{ listStyleType: "none", padding: 0 }}>
+          <h2>⏱ Timer: {Math.floor(time/60) > 9 ? Math.floor(time/60) : `0${Math.floor(time/60)}`}:
+                        {time % 60 < 10 ? `0${time % 60}` : time % 60}</h2>
+          <div style={{marginBottom:"10px"}}>
+            <input type="number" placeholder="MM" value={customMinutes} 
+              style={{fontSize:"16px", marginRight:'5px', borderRadius:"8px", border:"5px", padding:"8px", width:"40px"}}
+              onChange={(e) => setCustomMinutes(e.target.value)}/>
+            <span> : </span>
+            <input type="number" placeholder="SS" value={customSeconds} 
+              style={{fontSize:"16px", marginRight:'5px', borderRadius:"8px", border:"5px", padding:"8px", width:"40px"}}
+              onChange={(e) => setCustomSeconds(e.target.value)}/>
+
+            <button onClick={applyCustomTime}>Add</button>
+          </div>
+
+
+          {/* <ul style={{ listStyleType: "none", padding: 0 }}>
             {lapCount.map((lapObj) => (
               <li key={lapObj.lap} >
                 <b>Lap {lapObj.lap}: {lapObj.time} seconds</b>
               </li>
             ))}
-          </ul>
+          </ul> */}
 
           <div style={{display:"flex", justifyContent:"space-evenly", gap:"5px"}}>
             <button onClick={startTimer}>Start</button> 
             <button onClick={stopTimer}>Stop</button>
             <button onClick={resetTimer}>Reset</button>
-            <button onClick={lapTimer}>Lap</button>
+            {/* <button onClick={lapTimer}>Lap</button> */}
           </div>
         </div>
     </div>
   )
-}
-
-export const CurrentTime = () => {
-  const [time, setTime] = useState(new Date());
-
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setTime(new Date()); // update time every second
-    }, 1000);
-
-    // Cleanup interval when component unmounts
-    return () => clearInterval(timerId);
-  }, []);
-
-  const formattedTime = time.toLocaleTimeString(); 
-
-  return <div style={{textAlign:"center"}}> 
-    <h2>Current Time: {formattedTime}</h2>
-  </div>
 }
 

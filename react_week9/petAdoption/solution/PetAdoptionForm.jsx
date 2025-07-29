@@ -14,7 +14,7 @@ const PetAdoptionForm = () => {
         phone: ""
     });
 
-        
+    const [showTable, setShowTable] = useState(false);
     const { petName, petType, breed, adopterName, email, phone } = values;
     console.log(petName, petType, breed, adopterName, email, phone);
 

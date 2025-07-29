@@ -1,4 +1,5 @@
-import {Timer, CurrentTime} from './components/Timer'
+import {Timer} from './components/Timer'
+import {CurrentTime} from './components/currentTime'
 
 function App() {
 
