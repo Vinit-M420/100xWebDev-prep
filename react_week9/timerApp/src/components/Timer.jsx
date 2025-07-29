@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from 'react';
+import beep from '../assets/beep.mp3';
 
 export const Timer = () => {
   const [time , setTime] = useState(0);
@@ -10,10 +11,12 @@ export const Timer = () => {
 
   useEffect(  () => {
     if (isRunning && time > 0){ 
-      timerRef.current = setInterval( () => {
+      timerRef.current = setInterval(() => {
       setTime((sec) => {
         if (sec > 1) return sec - 1;
-        
+
+        const audio = new Audio(beep);
+        audio.play();
         clearInterval(timerRef.current) 
         setIsRunning(false);
         return 0;
@@ -25,7 +28,7 @@ export const Timer = () => {
   }, [isRunning, time])
 
 
-  const startTimer = () =>{
+  const startTimer = () => {
     if (!isRunning && time > 0) setIsRunning(true);
   };
 
@@ -33,7 +36,11 @@ export const Timer = () => {
     if (isRunning) setIsRunning(false);
   };
 
-  const resetTimer = () =>{
+  const toggleTimer = () => {
+    setIsRunning((prev) => !prev)
+  }
+
+  const resetTimer = () => {
       setIsRunning(false);
       setTime(0);
       setCustomMinutes("");
@@ -56,13 +63,14 @@ export const Timer = () => {
     }
   }
 
+  
 
   return (
     <div>
         <div style={{textAlign:"center"}}>
           <h2>⏱ Timer: {Math.floor(time/60) > 9 ? Math.floor(time/60) : `0${Math.floor(time/60)}`}:
                         {time % 60 < 10 ? `0${time % 60}` : time % 60}</h2>
-          <div style={{marginBottom:"10px"}}>
+          <div style={{marginBottom:"15px"}}>
             <input type="number" placeholder="MM" value={customMinutes} 
               style={{fontSize:"16px", marginRight:'5px', borderRadius:"8px", border:"5px", padding:"8px", width:"40px"}}
               onChange={(e) => setCustomMinutes(e.target.value)}/>
@@ -84,10 +92,9 @@ export const Timer = () => {
           </ul> */}
 
           <div style={{display:"flex", justifyContent:"space-evenly", gap:"5px"}}>
-            <button onClick={startTimer}>Start</button> 
-            <button onClick={stopTimer}>Stop</button>
+            <button onClick={toggleTimer}> {!isRunning ? "Start" : "Pause"}
+            </button> 
             <button onClick={resetTimer}>Reset</button>
-            {/* <button onClick={lapTimer}>Lap</button> */}
           </div>
         </div>
     </div>
