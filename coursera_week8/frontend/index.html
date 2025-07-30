@@ -142,14 +142,12 @@
             <button type="submit" id="admin-logout">Logout</button>
         </div>
         <div class="admin-courses"></div>
-
-        
     </div>
     
     <div class="modal-overlay" id="courseModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Add New Course</h3>
+                <h3 id="modalTitle">Add New Course</h3>
                 <button class="close-btn" id="closeModal">
                     <i class="fa-solid fa-times"></i>
                 </button>
@@ -173,12 +171,12 @@
                 
                 <div class="form-group">
                     <label for="courseImage">Image URL</label>
-                    <input type="url" id="courseImage" name="imageURL" placeholder="https://example.com/image.jpg">
+                    <input type="url" id="courseImage" name="imageURL" >
                 </div>
                 
                 <div class="form-buttons">
                     <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
-                    <button type="submit" class="btn-primary">
+                    <button type="submit" class="btn-primary" id='createBtn'> 
                         <i class="fa-solid fa-save"></i> Create Course
                     </button>
                 </div>

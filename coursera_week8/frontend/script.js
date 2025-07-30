@@ -192,7 +192,6 @@ async function loadAdminCourses() {
         console.error('No admin token found');
         return;
     }
-
     try {
         const adminHeader = document.querySelector(".admin-header");
         
@@ -239,6 +238,8 @@ async function loadAdminCourses() {
             let coursePrice = document.createElement('p');
             let editBtn = document.createElement('button');
             let deleteBtn = document.createElement('button');
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'course-actions';
 
             courseTitle.textContent = course.title;
             courseDesc.textContent = course.description;
@@ -246,35 +247,31 @@ async function loadAdminCourses() {
 
             editBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit';
             deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
+            
+            editBtn.className = "edit-course";
+            editBtn.addEventListener("click", () => {
+                console.log('Edit course:', course._id);
+                editModal(course._id, course.title, course.description, course.price, course.imageURL || '');
+                }    
+            );
 
-            editBtn.style.marginRight = '10px';
-            editBtn.style.color = 'black';
-            editBtn.style.border = 'none';
-            editBtn.style.padding = '8px 12px';
-            editBtn.style.borderRadius = '4px';
-            editBtn.style.cursor = 'pointer'; 
-
-            deleteBtn.style.backgroundColor = '#dc3545';
-            deleteBtn.style.color = 'white';
-            deleteBtn.style.border = 'none';
-            deleteBtn.style.padding = '8px 12px';
-            deleteBtn.style.borderRadius = '4px';
-            deleteBtn.style.cursor = 'pointer';
-
+            deleteBtn.className = "delete-course";
             deleteBtn.addEventListener("click", () => {
                 console.log('Delete course:', course._id);
                 if (confirm(`Are you sure you want to delete "${course.title}"?`)) {
                     deleteCourse(course._id, AdminToken);
                 }    
             });
-            
+
+            actionsDiv.appendChild(editBtn);
+            actionsDiv.appendChild(deleteBtn);
 
             const SingleC = document.createElement('div');
             SingleC.appendChild(courseTitle);
             SingleC.appendChild(courseDesc);
             SingleC.appendChild(coursePrice);
-            SingleC.appendChild(editBtn);
-            SingleC.appendChild(deleteBtn);
+            SingleC.appendChild(actionsDiv);
+            
             SingleC.className = "course";
             adminCoursesDiv.appendChild(SingleC);
         });
@@ -283,6 +280,9 @@ async function loadAdminCourses() {
         console.log('Error in fetching the courses:', error.message);
     }
 }
+
+let isEditMode = false;
+let currentCourseId ;
 
 function setupModal() {
         const modal = document.getElementById('courseModal');
@@ -302,6 +302,7 @@ function setupModal() {
             modal.classList.remove('active');
             document.body.style.overflow = 'auto'; // Restore scrolling
             addCourseForm.reset(); // Clear form
+            resetModalToAddMode();
         }
 
         // Close modal events
@@ -340,8 +341,31 @@ function setupModal() {
                 imageURL: formData.get('imageURL') || ''
             };
 
+            const editCourseData = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                price: parseFloat(formData.get('price')),
+                imageURL: formData.get('imageURL') || '',
+                courseId : currentCourseId
+            };
+
             try {
-                const response = await fetch('http://localhost:3001/api/v1/admin/course', {
+                let response ;
+                let successMessage;
+                console.log("Try started");
+                if (isEditMode && currentCourseId){
+                    console.log("Updated started");
+                    response = await fetch("http://localhost:3001/api/v1/admin/course", {
+                        method: "PUT",
+                        headers: { 'Content-Type': 'application/json',
+                                    'Authorization': `${AdminToken}` },
+                        body: JSON.stringify(editCourseData)    
+                    });
+                    successMessage = "Course Updated successfully";
+                    console.log("Updated ended");
+                }
+                else {
+                    response = await fetch('http://localhost:3001/api/v1/admin/course', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -349,23 +373,56 @@ function setupModal() {
                     },
                     body: JSON.stringify(courseData)
                 });
-
+                    successMessage= "Course Added successfully";
+                    
+                }
                 if (response.ok) {
                     const result = await response.json();
-                    alert('Course created successfully!');
+                    alert(successMessage);
                     closeModal();
-                    // Reload courses to show the new one
                     loadAdminCourses();
                 } else {
                     const error = await response.json();
-                    alert(`Error: ${error.message || 'Failed to create course'}`);
+                    alert(`Error: ${error.message || 'Failed to save course'}`);
+                }}  
+                catch (error) {
+                console.error('Error saving course:', error);
+                alert('Error creating/updating course. Please try again.');
                 }
-            } catch (error) {
-                console.error('Error creating course:', error);
-                alert('Error creating course. Please try again.');
-            }
         });
     }
+
+async function editModal(courseId, title, description, price, imageURL){
+    isEditMode = true;
+    currentCourseId = courseId;
+
+    document.getElementById("modalTitle").innerHTML= "Edit Course";
+    document.querySelector("#createBtn").innerHTML= " <i class='fa-solid fa-pen'></i> Edit Course";
+
+    document.getElementById("courseTitle").value = title;
+    document.getElementById("courseDescription").value = description;
+    document.getElementById("coursePrice").value = price;
+    document.getElementById("courseImage").value = imageURL || '';
+
+    const modal = document.getElementById('courseModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+}
+
+function resetModalToAddMode() {
+    console.log("reset modal called");
+    isEditMode = false;
+    currentCourseId = null;
+
+    // Reset modal UI to add mode
+    document.getElementById("modalTitle").innerHTML= 'Add New Course';
+    document.getElementById('createBtn').innerHTML = '<i class="fa-solid fa-save"></i> Create Course';
+    
+
+    // Clear form
+    document.getElementById('addCourseForm').reset();
+}
 
 async function deleteCourse(courseId, token){
     try{

@@ -1,18 +1,36 @@
+.course-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+}
+
 .courses{
     /* background: linear-gradient(to bottom, #0d1117, #111827); */
     display: grid;
     column-gap: 20px; row-gap: 30px;
     grid-template-columns: 1fr 1fr;
     padding: 30px;
-    margin: 10px 300px
-
+    margin: 10px 300px;
 }
 
 .course{
-    padding: 10px;
+    padding: 20px;
     text-align: center;
     background: linear-gradient(90deg, #1d4ed8, #3b82f6);
-    border-radius: 10px;
+    border-radius: 10px;    
+    width: 400px;
+    
+}
+
+.course p { /* Description styling */
+    overflow: hidden;
+    display: -webkit-box;
+    
+    -webkit-box-orient: vertical;
+    line-height: 1.4;
+    margin: 10px 0;
+    flex: 1;
 }
 
 .admin {
@@ -54,6 +72,48 @@
     border-color: #1e40af;  
 }
 
+.edit-course {
+    background-color: white;
+    color: black;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.edit-course:hover {
+    background-color: #e5e7eb;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.delete-course {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+}
+
+.delete-course:hover {
+    background-color: #c82333 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .admin-courses{
     margin: 20px;
     display: grid;
@@ -68,7 +128,7 @@
 }
 
 #admin-logout:hover{
-    background-color: #e67a7a; 
+    background-color: #ffb9b9;
 }
 
 .modal-overlay {
@@ -121,7 +181,7 @@
     padding-bottom: 10px;
 }
 
-.modal-header h3 {
+#modalTitle {
     margin: 0;
     color: #333;
 }
