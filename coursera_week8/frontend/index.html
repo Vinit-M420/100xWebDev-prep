@@ -129,19 +129,33 @@
 
         
     </div>
-        
-    <div class="courses">  
+
+    <div class="courses hidden">
+        <h3 id="course-header">Available Courses</h3>
+        <div class="courses-data">  
+        </div> 
     </div>
 
     <div class="admin hidden">
         <div class="admin-header">
-            <h2>Your Dashboard</h2>
+            <h2>Admin Dashboard</h2>
         </div>    
+        <!-- <div class="panel-type admin-panel">Admin</div> -->
         <div>
-            <button type="submit" id="add-courses">Add Course</button>
+            <button type="submit" id="add-courses"> <i class="fa-solid fa-plus"></i> Add Course</button>
             <button type="submit" id="admin-logout">Logout</button>
         </div>
         <div class="admin-courses"></div>
+    </div>
+
+    <div class="user hidden">
+        <div class="admin-header">
+            <h2>User Dashboard</h2>
+        </div>  
+        <div>
+            <button type="submit" id="reload">Reload</button>
+            <button type="submit" id="user-logout">Logout</button>
+        </div>
     </div>
     
     <div class="modal-overlay" id="courseModal">

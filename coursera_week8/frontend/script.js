@@ -116,10 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
         
 function setupCoursePreview() {    
+    console.log("setupCoursePreview func called")
     document.getElementById("mainBtn").addEventListener("click", async function (){
         if (!coursesFetched){
-        const coursesDiv = document.querySelector(".courses");
-
+        const coursesMainDiv = document.querySelector(".courses");
+        coursesMainDiv.classList.remove("hidden");
+        const coursesDiv = document.querySelector(".courses-data");
+        
         const response = await fetch("http://localhost:3001/api/v1/course/preview" , {
             method: "GET"
         });
@@ -130,11 +133,11 @@ function setupCoursePreview() {
         courses.forEach(course => {
             let courseTitle = document.createElement('h3');
             let courseDesc = document.createElement('p');
-            let coursePrice = document.createElement('p');
+            let coursePrice = document.createElement('span');
             
             courseTitle.textContent = course.title;
             courseDesc.textContent = course.description;
-            coursePrice.textContent = `Price: ${course.price}`;
+            coursePrice.textContent = `Price: ₹${course.price}`;
 
             const SingleC = document.createElement('div');
             SingleC.appendChild(courseTitle);
@@ -175,7 +178,7 @@ function showAdminOrUser(){
     if (AdminToken){
         document.querySelector(".container").classList.add("hidden");
         document.querySelector(".admin").classList.remove("hidden");
-        document.querySelector("#navButtons").classList.add("disabled-btn")
+        document.querySelector("#navButtons").classList.add("hidden")
         loadAdminCourses();
     } 
     else if (UserToken) {
@@ -194,7 +197,6 @@ async function loadAdminCourses() {
     }
     try {
         const adminHeader = document.querySelector(".admin-header");
-        
         // Check if admin name already exists before making API call
         const existingName = adminHeader.querySelector('h3');
         if (!existingName) {
@@ -207,7 +209,7 @@ async function loadAdminCourses() {
             
             const adminNameData = await adminName.json();
             const adminFname = document.createElement('h3');
-            adminFname.textContent = `Hi ${adminNameData.firstName}`;
+            adminFname.textContent = `Hi ${adminNameData.firstName} ${adminNameData.lastName}`;
             adminHeader.appendChild(adminFname);
         }
 
@@ -235,7 +237,7 @@ async function loadAdminCourses() {
         courses.forEach(course => {
             let courseTitle = document.createElement('h3');
             let courseDesc = document.createElement('p');
-            let coursePrice = document.createElement('p');
+            let coursePrice = document.createElement('span');
             let editBtn = document.createElement('button');
             let deleteBtn = document.createElement('button');
             const actionsDiv = document.createElement('div');
@@ -243,7 +245,7 @@ async function loadAdminCourses() {
 
             courseTitle.textContent = course.title;
             courseDesc.textContent = course.description;
-            coursePrice.textContent = `Price: ${course.price}`;
+            coursePrice.textContent = `Price: ₹${course.price}`;
 
             editBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Edit';
             deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i> Delete';
@@ -481,6 +483,10 @@ function setupNavigationListeners() {
     { e.preventDefault(); hideAll(); document.querySelector('.admin-login-container').classList.remove('hidden'); });
 
   document.getElementById('admin-logout').addEventListener('click', e => 
-    { e.preventDefault(); localStorage.removeItem('AdminAuth'); showAdminOrUser(); });
+    { e.preventDefault(); localStorage.removeItem('AdminAuth'); showAdminOrUser(); 
+      document.querySelector("#navButtons").classList.remove("hidden");
+      document.querySelector(".admin").classList.add("hidden");
+      
+     });
 }
 
