@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
         
 function setupCoursePreview() {    
-    console.log("setupCoursePreview func called")
+    console.log("setupCoursePreview func called");
     document.getElementById("mainBtn").addEventListener("click", async function (){
         if (!coursesFetched){
         const coursesMainDiv = document.querySelector(".courses");
@@ -161,7 +161,7 @@ function setupPasswordToggles(){
     if (input.type === 'password') {
             input.type = 'text';
             this.classList.remove('fa-eye');
-            this.classList.add('fa-eye-slash'); // Show slashed icon when visible
+            this.classList.add('fa-eye-slash');
     } else{
             input.type = 'password';
             this.classList.remove('fa-eye-slash');
@@ -184,6 +184,8 @@ function showAdminOrUser(){
     else if (UserToken) {
         document.querySelector(".container").classList.add("hidden");
         document.querySelector(".user").classList.remove("hidden");
+        document.querySelector("#navButtons").classList.add("hidden");
+        loadUserCourses();
     } 
     else document.querySelector(".container").classList.remove("hidden");
 }
@@ -283,6 +285,88 @@ async function loadAdminCourses() {
     }
 }
 
+async function loadUserCourses(){
+    console.log('loadUserCourses() called');
+    const UserToken = localStorage.getItem('UserAuth');
+    if (!UserToken) {
+        console.error('No User token found');
+        return;
+    }
+    try{
+        const userHeader = document.querySelector(".user-header");
+        const existingName = userHeader.querySelector('h3');
+        if (!existingName){
+            const userName = await fetch("http://localhost:3001/api/v1/user/me", {
+                method: "GET",
+                headers: { "Authorization": `${UserToken}` }
+            });
+
+            const userNameData = await userName.json();
+            const userDiv = document.createElement("h3");
+            userDiv.textContent = `Hi ${userNameData.firstName} ${userNameData.lastName}`;
+            userDiv.className = 'welcome';
+            userHeader.appendChild(userDiv);
+        }
+
+        const response = await fetch("http://localhost:3001/api/v1/user/purchases", {
+            method: "GET",
+            headers: { "Authorization": `${UserToken}` }
+        });
+
+        if (!response.ok) {
+            throw new Error( `HTTP error! status: ${response.status}` );
+        }
+
+        const responseData   = await response.json();
+        console.log('Full response:', responseData);
+
+        const { purchases, courseData } = responseData;
+        const userCoursesDiv = document.querySelector(".user-courses");
+        userCoursesDiv.innerHTML = '';
+
+        if (!courseData || courseData.length === 0) {
+            let noCourse = document.createElement("h5");
+            noCourse.textContent = "You have no courses published yet";
+            userCoursesDiv.appendChild(noCourse);
+            return;
+        }
+    
+        
+        courseData.forEach(course => {
+            let courseTitle = document.createElement('h3');
+            let courseDesc = document.createElement('p');
+            let coursePrice = document.createElement('span');
+            let actionsDiv = document.createElement('div');
+            actionsDiv.className = 'course-actions';
+            let viewBtn = document.createElement('button');
+            let certiBtn = document.createElement('button');
+
+            courseTitle.textContent = course.title;
+            courseDesc.textContent = course.description;
+            coursePrice.textContent = `Price: ₹${course.price}`;
+            viewBtn.textContent = 'View Course';
+            // certiBtn.textContent = 'Certificate'
+            // certiBtn.style.disabled;
+
+            const SingleC = document.createElement('div');
+            SingleC.appendChild(courseTitle);
+            SingleC.appendChild(courseDesc);
+            SingleC.appendChild(coursePrice);
+            actionsDiv.appendChild(viewBtn);
+            // actionsDiv.appendChild(certiBtn);
+            SingleC.appendChild(actionsDiv);
+            SingleC.className = "course";
+            
+            userCoursesDiv.appendChild(SingleC);
+        }
+
+    );
+
+    } catch(error){
+        console.log('Error in fetching the user courses:', error.message);
+    }
+}
+
 let isEditMode = false;
 let currentCourseId ;
 
@@ -352,7 +436,7 @@ function setupModal() {
             };
 
             try {
-                let response ;
+                let response;
                 let successMessage;
                 console.log("Try started");
                 if (isEditMode && currentCourseId){
@@ -408,8 +492,7 @@ async function editModal(courseId, title, description, price, imageURL){
 
     const modal = document.getElementById('courseModal');
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    
+    document.body.style.overflow = 'hidden';    
 }
 
 function resetModalToAddMode() {
@@ -420,7 +503,6 @@ function resetModalToAddMode() {
     // Reset modal UI to add mode
     document.getElementById("modalTitle").innerHTML= 'Add New Course';
     document.getElementById('createBtn').innerHTML = '<i class="fa-solid fa-save"></i> Create Course';
-    
 
     // Clear form
     document.getElementById('addCourseForm').reset();
@@ -486,7 +568,13 @@ function setupNavigationListeners() {
     { e.preventDefault(); localStorage.removeItem('AdminAuth'); showAdminOrUser(); 
       document.querySelector("#navButtons").classList.remove("hidden");
       document.querySelector(".admin").classList.add("hidden");
-      
+     });
+
+   document.getElementById('user-logout').addEventListener('click', e => 
+    { e.preventDefault(); localStorage.removeItem('UserAuth'); 
+        showAdminOrUser(); 
+      document.querySelector("#navButtons").classList.remove("hidden");
+      document.querySelector(".user").classList.add("hidden");
      });
 }
 

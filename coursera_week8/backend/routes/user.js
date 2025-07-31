@@ -108,6 +108,21 @@ router.post("/signin", async function (req, res) {
     }
 });
 
+router.use(userAuth);
+
+router.get("/me", async function (req, res) {
+    const userId = req.userId;
+    try{
+        const userData = await UserModel.findOne({ _id: userId });
+
+        if (!userData) return res.status(404).json({ message: "User not found" });     
+
+        res.json({ firstName: userData.firstName, lastName: userData.lastName })
+
+    } catch(error){
+        res.status(403).json({ message: 'Error in Fetching the User', error: error.message });
+    }
+});
 
 router.get("/purchases", async function (req, res) {
     const userId = req.userId;
@@ -122,13 +137,12 @@ router.get("/purchases", async function (req, res) {
 });
 
 
-
 router.post("/purchase" , async function (req, res) {
     const userId = req.userId;
     const courseId = req.body.courseId;
     
     try{
-        const course = await CourseModel.findById(courseId);
+        const course = await CourseModel.findOne( { _id: courseId });
         if (!course) {
             return res.status(404).json({ message: "Course not found" });
         }
@@ -139,15 +153,19 @@ router.post("/purchase" , async function (req, res) {
         }
         else{
         const purchase =  await PurchaseModel.create({ userId , courseId })
+            
+        if (!purchase){
+            return res.json({ message: "Failed in purchasing the course" })
         }
-
-    res.json({ message: "You have successfully bought the course",
+        res.json({ message: "You have successfully bought the course",
             purchase,
             course
-     })
+        }) 
+    }
     }
     catch(error){
-        res.status(500).json({ message: "Error purchasing the course", error: error.message });
+        res.status(500).json({ message: "Error purchasing the course", 
+            error: error.message });
     }
 });
 
