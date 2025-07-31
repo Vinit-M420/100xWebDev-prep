@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 <body>
     <div class="navbar">
@@ -126,8 +125,7 @@
             </p>
             <p class="response-message" id="admin-login-resp"></p>
         </div>
-
-        
+      
     </div>
 
     <div class="courses hidden">
@@ -137,15 +135,20 @@
     </div>
 
     <div class="admin hidden">
-        <div class="admin-header">
-            <h2>Admin Dashboard</h2>
-        </div>    
-        <!-- <div class="panel-type admin-panel">Admin</div> -->
-        <div>
-            <button type="submit" id="add-courses"> <i class="fa-solid fa-plus"></i> Add Course</button>
-            <button type="submit" id="admin-logout">Logout</button>
+        <div class="dashboard-container">
+            <header class="dashboard-header">
+                <div class="admin-header">
+                    <h1>Admin Dashboard</h1>
+                </div>    
+                <!-- <div class="panel-type admin-panel">Admin</div> -->
+                <div>
+                    <button type="submit" id="add-courses"> <i class="fa-solid fa-plus"></i> Add Course</button>
+                    <button type="submit" id="admin-logout">Logout</button>
+                </div>
+            </header>
+            <div class="no-admin-courses"></div>
+            <div class="admin-courses"></div>
         </div>
-        <div class="admin-courses"></div>
     </div>
 
     <div class="user hidden">
@@ -155,7 +158,7 @@
                     <h1>User Dashboard</h1>
                 </div>  
                 <div>
-                    <button type="submit">Edit Profile</button>
+                    <button type="submit" id="editBtn">Edit Profile</button>
                     <button type="submit" id="user-logout">Logout</button>
                 </div>
             </header>
@@ -164,9 +167,11 @@
                     <button class="tab-btn active" data-tab="purchased">My Courses</button>
                     <button class="tab-btn" data-tab="available">Available Courses</button>
                 </nav>
-                <div id="user-courses-header"><h2>Your Courses</h2></div>
+                <div id="user-courses-header">
+                    <h2>Your Courses</h2>
+                </div>
                 <div class="user-courses"></div>
-                <div class="all-courses"></div>
+                <div class="all-courses hidden"></div>
             </main>
         </div>
     </div>

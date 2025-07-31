@@ -212,6 +212,7 @@ async function loadAdminCourses() {
             const adminNameData = await adminName.json();
             const adminFname = document.createElement('h3');
             adminFname.textContent = `Hi ${adminNameData.firstName} ${adminNameData.lastName}`;
+            adminFname.className = 'welcome';
             adminHeader.appendChild(adminFname);
         }
 
@@ -229,10 +230,12 @@ async function loadAdminCourses() {
         const adminCoursesDiv = document.querySelector(".admin-courses");
         adminCoursesDiv.innerHTML = '';
 
+        const NoAdminCoursesDiv = document.querySelector(".no-admin-courses");
+        NoAdminCoursesDiv.innerHTML = '';
         if (!courses || courses.length === 0) {
             let noCourse = document.createElement("h5");
             noCourse.textContent = "You have no courses published yet";
-            adminCoursesDiv.appendChild(noCourse);
+            NoAdminCoursesDiv.appendChild(noCourse);
             return;
         }
 
@@ -330,8 +333,7 @@ async function loadUserCourses(){
             userCoursesDiv.appendChild(noCourse);
             return;
         }
-    
-        
+      
         courseData.forEach(course => {
             let courseTitle = document.createElement('h3');
             let courseDesc = document.createElement('p');
@@ -339,7 +341,7 @@ async function loadUserCourses(){
             let actionsDiv = document.createElement('div');
             actionsDiv.className = 'course-actions';
             let viewBtn = document.createElement('button');
-            let certiBtn = document.createElement('button');
+            // let certiBtn = document.createElement('button');
 
             courseTitle.textContent = course.title;
             courseDesc.textContent = course.description;
@@ -355,17 +357,52 @@ async function loadUserCourses(){
             actionsDiv.appendChild(viewBtn);
             // actionsDiv.appendChild(certiBtn);
             SingleC.appendChild(actionsDiv);
-            SingleC.className = "course";
-            
+            SingleC.className = "course";   
             userCoursesDiv.appendChild(SingleC);
         }
-
     );
 
+    const allCourseDiv = document.querySelector(".all-courses");
+    const preview = await fetch("http://localhost:3001/api/v1/course/preview" , {
+            method: "GET"
+        });
+
+        const data = await preview.json();
+        const allCourses = data.courses; 
+        
+        allCourses.forEach(course => {
+            let courseTitle = document.createElement('h3');
+            let courseDesc = document.createElement('p');
+            let coursePrice = document.createElement('span');
+            
+            courseTitle.textContent = course.title;
+            courseDesc.textContent = course.description;
+            coursePrice.textContent = `Price: ₹${course.price}`;
+
+            const SingleC = document.createElement('div');
+            SingleC.appendChild(courseTitle);
+            SingleC.appendChild(courseDesc);
+            SingleC.appendChild(coursePrice);
+            SingleC.className = "course";
+            allCourseDiv.appendChild(SingleC);
+            coursesFetched = true;
+        })
     } catch(error){
         console.log('Error in fetching the user courses:', error.message);
     }
 }
+
+// function userTabSwitching(){
+    const tabButtons = document.querySelectorAll('.tab-btn');
+
+    tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.classList.remove('active'));            
+            button.classList.add('active');
+        });
+    });
+// }
+
 
 let isEditMode = false;
 let currentCourseId ;
@@ -533,6 +570,7 @@ async function deleteCourse(courseId, token){
     }
 }
 
+
 function setupNavigationListeners() {
   const hideAll = () => {
     document.querySelectorAll('.main, .login-container, .signup-container, .admin-login-container, .admin-signup-container, .courses')
@@ -576,5 +614,5 @@ function setupNavigationListeners() {
       document.querySelector("#navButtons").classList.remove("hidden");
       document.querySelector(".user").classList.add("hidden");
      });
-}
 
+}
