@@ -34,7 +34,6 @@ body{
     right: 0;
     z-index: 1000;
     /* height: 64px; */
-    
 }
 
 #navTitle{
@@ -44,12 +43,6 @@ body{
 
 #navButtons{
     padding-top: 15px;
-}
-
-.fa-moon{
-    margin-right: 15px;
-    cursor: pointer;
-    border-radius: 7px;
 }
 
 button{
@@ -140,14 +133,14 @@ button{
     padding: 25px;
     max-width: 400px;
     width: 100%;
-    background: rgba(29, 78, 216, 0.2); /* #1d4ed8, 85% opacity */
+    background: rgba(29, 78, 216, 0.2); 
     border: 1px solid #3b82f6;
     border-radius: 12px;
 }
 
 
 .admin-signup-container, .admin-login-container{
-    background: rgba(109, 40, 217, 0.2); /* #6d28d9 (violet-700) */
+    background: rgba(109, 40, 217, 0.2); 
     border: 1px solid #a78bfa;
     display: flex;
     flex-direction: column;
@@ -318,5 +311,4 @@ button{
 .disabled-btn {
   opacity: 0.5;
   cursor: not-allowed;
-
 }

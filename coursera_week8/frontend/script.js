@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupNavigationListeners();
     setupModal();
     setupCoursePreview();
+    initializeTabSwitching();
 });
 
     function styleBrandNames() {
@@ -321,7 +322,7 @@ async function loadUserCourses(){
         }
 
         const responseData   = await response.json();
-        console.log('Full response:', responseData);
+        // console.log('Full response:', responseData);
 
         const { purchases, courseData } = responseData;
         const userCoursesDiv = document.querySelector(".user-courses");
@@ -341,21 +342,17 @@ async function loadUserCourses(){
             let actionsDiv = document.createElement('div');
             actionsDiv.className = 'course-actions';
             let viewBtn = document.createElement('button');
-            // let certiBtn = document.createElement('button');
 
             courseTitle.textContent = course.title;
             courseDesc.textContent = course.description;
             coursePrice.textContent = `Price: ₹${course.price}`;
             viewBtn.textContent = 'View Course';
-            // certiBtn.textContent = 'Certificate'
-            // certiBtn.style.disabled;
 
             const SingleC = document.createElement('div');
             SingleC.appendChild(courseTitle);
             SingleC.appendChild(courseDesc);
             SingleC.appendChild(coursePrice);
             actionsDiv.appendChild(viewBtn);
-            // actionsDiv.appendChild(certiBtn);
             SingleC.appendChild(actionsDiv);
             SingleC.className = "course";   
             userCoursesDiv.appendChild(SingleC);
@@ -374,15 +371,24 @@ async function loadUserCourses(){
             let courseTitle = document.createElement('h3');
             let courseDesc = document.createElement('p');
             let coursePrice = document.createElement('span');
-            
+            let buyBtn = document.createElement("button");
+            let courseAct = document.createElement("div");
+            courseAct.className = 'course-actions';
+
             courseTitle.textContent = course.title;
             courseDesc.textContent = course.description;
             coursePrice.textContent = `Price: ₹${course.price}`;
+            buyBtn.textContent = "Buy";
+            buyBtn.className = 'buyBtn';
+            courseAct.appendChild(buyBtn);
 
             const SingleC = document.createElement('div');
             SingleC.appendChild(courseTitle);
             SingleC.appendChild(courseDesc);
             SingleC.appendChild(coursePrice);
+            SingleC.appendChild(courseAct);
+           
+
             SingleC.className = "course";
             allCourseDiv.appendChild(SingleC);
             coursesFetched = true;
@@ -392,17 +398,37 @@ async function loadUserCourses(){
     }
 }
 
-// function userTabSwitching(){
+function initializeTabSwitching(){
     const tabButtons = document.querySelectorAll('.tab-btn');
+    const userCoursesDiv = document.querySelector('.user-courses');
+    const allCoursesDiv = document.querySelector('.all-courses');
+    const coursesHeader = document.querySelector('#user-courses-header h2');
 
     tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-            tabButtons.forEach(btn => btn.classList.remove('active'));            
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
             button.classList.add('active');
+            
+            // Get the tab type from data attribute
+            const tabType = button.getAttribute('data-tab');
+            
+            if (tabType === 'purchased') {
+                // Show purchased courses, hide available courses
+                userCoursesDiv.classList.remove('hidden');
+                allCoursesDiv.classList.add('hidden');
+                coursesHeader.textContent = 'Your Courses';
+            } else if (tabType === 'available') {
+                // Show available courses, hide purchased courses
+                userCoursesDiv.classList.add('hidden');
+                allCoursesDiv.classList.remove('hidden');
+                coursesHeader.textContent = 'Available Courses';
+            }
         });
     });
-// }
-
+}
 
 let isEditMode = false;
 let currentCourseId ;

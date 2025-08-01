@@ -113,10 +113,9 @@
     font-size: 30px;
     text-align: center;
     padding: 0 ;
-
 }
 
-.admin , .user {
+.admin, .user {
     background: linear-gradient(to bottom, #0d1117, #111827);
     color: white;
     margin-left: calc(-50vw + 50%); 
@@ -130,27 +129,14 @@
     padding-top: 70px;
 }
 
-
-.admin-header {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.admin-header h2, .admin-header h3
-/* .user-header h2, .user-header h3 */
-{
-    text-align: center;
-    margin:10px; padding: 0;
-}
-
-#add-courses, #reload{
+#add-courses, #reload, #editBtn{
     margin: 10px;
     background-color: #1d4ed8;
     color: white;
     border: 1px solid #1d4ed8;
 }
 
-#add-courses:hover , #reload:hover {
+#add-courses:hover , #reload:hover, #editBtn:hover {
     background-color: #1e40af;
     border-color: #1e40af;  
 }
@@ -197,7 +183,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.admin-courses, .user-courses{
+.admin-courses, .user-courses, .all-courses{
     margin: 20px;
     display: grid;
     column-gap: 20px; row-gap: 30px;
@@ -361,4 +347,21 @@
 
 #user-courses-header{
     margin-top: 20px;
+}
+
+.all-courses .course {
+    background: linear-gradient(135deg, #1a2332 0%, #243447 100%) !important;
+    border: 2px solid #3b82f6 !important;
+    /* position: relative; */
+}
+
+.buyBtn {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: #ffffff;
+    padding: 8px 16px;
+}
+
+.buyBtn:hover {
+    background: #b91c1c !important;
 }
