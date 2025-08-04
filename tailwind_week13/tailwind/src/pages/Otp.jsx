@@ -2,8 +2,9 @@ import { Button } from '../components/button'
 // import { Input } from '../components/input'
 import '../App.css'
 import { useRef, useState } from 'react'  
+import { Timer } from '../components/timer';
 
-export const Otp = () => {
+export const Otp = ({email} ) => {
     //const [inputEmail, setEmail] = useState('');
     const ref1 = useRef();
     const ref2 = useRef();
@@ -14,14 +15,12 @@ export const Otp = () => {
 
     const [disabled, setDisabled] = useState(true);
 
-    return (
-    <>
+    return <>
         <h2 className='text-3xl font-bold py-10'>Check Your Email for a Code</h2>
-        <p>
-            Please enter the Otp sent to your email id
+        <p className='mb-1'>
+            Please enter the OTP sent to your email id <span className='underline text-gray-300 font-bold'>{email}</span>
         </p>
-        <div className='flex mb-10'>
-
+        <div className='flex mb-1'>
             <SubOtpBox reference={ref1} onDone={() => {
                 ref2.current.focus();
             }} />    
@@ -41,9 +40,10 @@ export const Otp = () => {
                 setDisabled(false);
             }} />  
         </div>
+        <Timer />
         <Button disabled={disabled}>Verify</Button>
     </>
-    )
+    
 }
 
 function SubOtpBox({ reference, onDone }) {

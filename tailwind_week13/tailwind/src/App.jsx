@@ -16,10 +16,13 @@ function App() {
           )}
           
           {currentPage === 'email' && (
-          <Email onContinue={() => setCurrentPage('otp') } /> )}
+          <Email currentEmail={currentEmail}           
+            setCurrentEmail={setCurrentEmail}  
+            onContinue={() => { setCurrentPage('otp')} } 
+          /> )}
 
           {currentPage === 'otp' && (
-          <Otp /> )}
+          <Otp email={currentEmail} /> )}
       </div>
 
   )

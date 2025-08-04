@@ -4,8 +4,8 @@ import '../App.css'
 import { useState } from 'react'  // Add this import
 
 
-export const Email = ( {onContinue} ) => {
-    const [inputEmail, setEmail] = useState('');
+export const Email = ( { currentEmail ,  setCurrentEmail , onContinue} ) => {
+    // const [inputEmail, setEmail] = useState('');
     const [disabled, setDisabled] = useState(true);
 
     return (
@@ -15,10 +15,10 @@ export const Email = ( {onContinue} ) => {
             <Input 
             type='text' 
             placeholder='Email Id' 
-            value={inputEmail} 
+            value={currentEmail} 
             onChange={(e) => {
-                setEmail(e.target.value);
-                setDisabled(!e.target.value.trim()); // disables button when input is empty
+                setCurrentEmail(e.target.value);
+                setDisabled(!e.target.value.trim());
             }}/>
 
             <Button disabled={disabled} onClick={onContinue}>Continue</Button>
