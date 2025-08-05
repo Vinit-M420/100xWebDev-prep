@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import beep from '../assets/beep.mp3';
+import { calculateTime, formatTime } from '../utils/auxiliaryFunctions';
 
 export const Timer = () => {
   const [time , setTime] = useState(0);
@@ -7,6 +8,7 @@ export const Timer = () => {
   // const [lapCount, setLapCount] = useState([]);
   const [customMinutes , setCustomMinutes]= useState("");
   const [customSeconds , setCustomSeconds]= useState("");
+  // const [editState , setEditState] = useEffect({ field: null, value: "" });
   const timerRef = useRef();
 
   useEffect(  () => {
@@ -63,7 +65,25 @@ export const Timer = () => {
     }
   }
 
-  
+  // const handleEditField = (field) => {
+  //   if (editState.field === field){
+  //     const newTime = {
+  //       ...formatTime(time),
+  //       [field] : editState.value.padStart(2, "0")
+  //     } 
+
+  //     const calculatedTime = calculateTime(newTime.hours + newTime.minutes + newTime.seconds)
+  //     setTime(calculateTime);
+  //     setEditState({ field: null, value: '' });
+  //   }
+  //   else{
+  //  setIsRunning(false);
+  //   setEditState({
+  //   field,
+  //   value: })
+  //   }
+  // }
+
 
   return (
     <div>
