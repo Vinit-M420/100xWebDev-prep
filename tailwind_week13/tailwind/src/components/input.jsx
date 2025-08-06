@@ -1,6 +1,5 @@
 
-
-export const Input = ({
+export const Input =({
     onChange,
     type, 
     placeholder

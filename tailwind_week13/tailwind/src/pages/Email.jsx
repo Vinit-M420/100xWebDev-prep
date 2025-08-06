@@ -1,11 +1,9 @@
 import { Button } from '../components/button'
 import { Input } from '../components/input'
 import '../App.css'
-import { useState } from 'react'  // Add this import
+import { useState } from 'react'  
 
-
-export const Email = ( { currentEmail ,  setCurrentEmail , onContinue} ) => {
-    // const [inputEmail, setEmail] = useState('');
+export const Email = ( { currentEmail ,  setCurrentEmail , onContinue } ) => {
     const [disabled, setDisabled] = useState(true);
 
     return (
@@ -21,7 +19,8 @@ export const Email = ( { currentEmail ,  setCurrentEmail , onContinue} ) => {
                 setDisabled(!e.target.value.trim());
             }}/>
 
-            <Button disabled={disabled} onClick={onContinue}>Continue</Button>
+            <Button disabled={disabled} onClick={onContinue}>
+            Continue</Button>
     </>
     )
 }

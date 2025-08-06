@@ -1,7 +1,7 @@
 import { Button } from '../components/button'
 import { Timer } from '../components/timer'
 import '../App.css'
-import { useRef, useState } from 'react'  
+import { useRef, useState, memo } from 'react'  
 
 export const Otp = ({email}) => {
     const ref1 = useRef();
@@ -53,11 +53,15 @@ export const Otp = ({email}) => {
                 ref5.current.focus() ;
             }}/>  
         </div>
-        <Timer />
+        <MemoizedTimer />
         <Button disabled={disabled}>Verify</Button>
     </>
     )
 }
+
+const MemoizedTimer = memo(() => {
+    return <Timer/>
+})
 
 function SubOtpBox({ reference, onDone, goBack }) {
     const [inputVal, setInputVal] = useState('');

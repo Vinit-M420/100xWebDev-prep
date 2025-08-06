@@ -4,7 +4,6 @@ import { BirthYear } from './pages/BirthYear';
 import { Email } from './pages/Email';
 import { Otp } from './pages/Otp';
 
-
 function App() {
   const [currentPage, setCurrentPage] = useState('birthYear'); 
   const [currentEmail, setCurrentEmail] = useState('');
@@ -24,7 +23,6 @@ function App() {
           {currentPage === 'otp' && (
           <Otp email={currentEmail} /> )}
       </div>
-
   )
 }
 
