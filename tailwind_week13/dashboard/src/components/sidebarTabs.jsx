@@ -28,3 +28,23 @@ export const SideBarTabs = () => {
         </div>
     </>
 }
+
+export const SideBarLogosOnly = () => {
+    return <div className='flex flex-col gap-5'>
+        <div className="mb-4 bg-mblue-100 rounded-2xl ">
+            <img src={home} alt="home" className='h-6 w-6 '/>
+        </div>
+        <div className="mb-4">
+            <img src={webinar} alt="webinar" className='h-6 w-6'/>
+        </div>
+        <div className="mb-4">
+            <Billing />
+        </div>
+        <div className="mb-4">
+            <Community />
+        </div>
+        <div className="mb-4">
+            <img src={settings} alt="settings" className='rounded-xl h-6'/>
+        </div>
+    </div>
+}

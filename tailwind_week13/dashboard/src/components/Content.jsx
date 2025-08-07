@@ -10,9 +10,9 @@ export const Content = () => {
             <div className='h-40 w-full bg-black hidden md:block'>
             </div>
         
-            <div className="grid grid-cols-11 px-8">
+            <div className="grid grid-cols-10 px-8">
 
-            <div className="h-80 rounded-2xl shadow-lg md:col-span-3 hidden md:block bg-white -translate-y-10
+            <div className="h-80 rounded-2xl shadow-lg md:col-span-2 hidden md:block bg-white -translate-y-10
                             flex-col items-center justify-center text-center py-8 px-4 border border-gray-200 ">
                     <ProfileContent />          
                 </div>

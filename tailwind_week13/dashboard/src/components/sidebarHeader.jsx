@@ -9,9 +9,7 @@ export const SideBarHeader = () => {
                 <span className='text-mblue-300'>.gg</span>
             </h3>
             <div className='flex'>
-                <img src={bokuto} alt="my pic"
-                    className='rounded-xl h-10'/>
-        
+                <img src={bokuto} alt="my pic" className='rounded-xl h-10'/>
             </div>
         </div>
     </>
