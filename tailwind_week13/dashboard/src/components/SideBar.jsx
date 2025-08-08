@@ -39,9 +39,9 @@ export const SideBar = () => {
         return (
             <div className="px-4 bg-white h-screen transition-all duration-100 md:w-15 w-15 border-r border-gray-200 
                             shadow-xl fixed left-0 top-0 z-40 md:relative md:z-auto md:shadow-none">
-                                
+
                 <div className="my-4 inline-block cursor-pointer hover:bg-slate-300 rounded-md"
-                    onClick={() => { setToggleSideBar(!toggleSideBar); console.log("sidebar btn clicked"); }}>
+                    onClick={() => { setToggleSideBar(!toggleSideBar); }}>
                     <SideIcon />
                 </div>
                 <div className="mt-20">
