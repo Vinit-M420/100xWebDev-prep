@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@theme{
+  --color-star-500: #f3b04e;
+  --color-star-100: #f5f5f5;
+}
