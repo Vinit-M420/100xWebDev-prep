@@ -13,7 +13,8 @@ export const Sidebar = () => {
                 <div className="flex flex-col mx-5 my-8 gap-2">
                     <div className="flex justify-between p-1">
                         <h2 className="font-bold text-white text-lg">My Lists</h2>
-                        <div className="p-1 hover:border hover:border-neutral-500 rounded-sm flex items-center"
+                        <div className="p-1 hover:border hover:border-neutral-500 rounded-sm flex items-center cursor-pointer
+                                        border border-transparent"
                             onClick={ () => { 
                                 setToggleSidebar(!toggleSidebar);
                                 //console.log("SideBar toggled"); 
@@ -24,7 +25,7 @@ export const Sidebar = () => {
                     <div className="mb-1 p-1">
                         <h4 className="font-bold text-white text-md">Created by Me</h4>
                     </div>
-                    <div className="flex justify-between bg-neutral-700 rounded-lg py-1 px-2">
+                    <div className="flex justify-between bg-neutral-700 hover:bg-neutral-600 rounded-lg py-1 px-2">
                         <div className="flex gap-2">
                             <div className="bg-star-100 rounded-lg p-1">
                                 <Star className = 'fill-yellow-500' />
@@ -46,7 +47,7 @@ export const Sidebar = () => {
                 <div className="flex flex-col mx-5 my-8 gap-2">
                     <div className="flex justify-between p-1">
                         <h2 className="font-bold text-white text-lg"></h2>
-                        <div className="border border-neutral-500 p-1 rounded-sm flex items-center"
+                        <div className="border border-neutral-500 p-1 rounded-sm flex items-center cursor-pointer"
                             onClick={ () => { 
                                 setToggleSidebar(!toggleSidebar);
                             }} >
