@@ -33,7 +33,7 @@ export const Sidebar = () => {
                             <h4 className="flex items-center font-bold text-white text-lg">Favorite</h4>
                         </div>
                         <div className="flex items-center">
-                            <Lock />
+                            <Lock size="20"/>
                         </div>
                     </div>
                 </div>
