@@ -24,9 +24,11 @@ export const Leet = ( {children } ) => {
     
 
         return ( 
-            <div className="flex justify-between m-1 px-2 py-2">
-                <div className="flex gap-2">
-                    <Check />
+            <div className="flex justify-between m-1 pl-2 pr-6 py-2">
+                <div className="flex gap-3">
+                    <div className="flex items-center">
+                        <Check size="20" />
+                    </div>
                     <h2 className="font-semibold">
                         {children}
                     </h2>

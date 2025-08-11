@@ -7,7 +7,7 @@ import { Git } from "../icons/git";
 export const Favorite = () => {
 
     return (
-        <div className="flex flex-col gap-4 border-b border-neutral-500">                    
+        <div className="flex flex-col gap-4 lg:border-b lg:border-neutral-500 lg:items-start items-center">                    
             <div className="rounded-lg">
                 <Star width={80} height={80} className= 'fill-yellow-500 bg-star-100 rounded-xl p-3' />
             </div>
@@ -15,12 +15,12 @@ export const Favorite = () => {
                 <h1 className="text-3xl font-semibold">Favorite</h1>
             </div>
             <div className="flex gap-2">
-                <h2>Vinit</h2>
+                <h2 className="md:text-md text-sm">Vinit</h2>
                 <div className="-translate-y-1">.</div>
-                <h2>19 questions</h2>
+                <h2 className="md:text-md text-sm" >19 questions</h2>
                 <div className="-translate-y-1">.</div>
                 <div className="flex items-center"><Lock size="20" /></div>
-                <h2>Private</h2>
+                <h2 className="md:text-md text-sm">Private</h2>
                 <div className="flex items-center"><DownArrow /></div>
             </div>
 

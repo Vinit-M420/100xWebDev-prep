@@ -3,7 +3,9 @@ import { Filter } from "../icons/filter";
 import { FilterToggle } from "./FilterToggle";
 import { Favorite } from "./Favorite";
 import { Progress } from "./Progress";
-import { Leet } from "./Leets";
+import { SidebarExpand } from "../icons/sidebar_expand";
+// import { SidebarOverlay } from "./SidebarOverlay";
+import { EasyLeets } from "./EasyLeets";
 
 export const Main = () => {
     // const [toggleSidebar, setToggleSidebar] = useState(true);
@@ -11,13 +13,19 @@ export const Main = () => {
     return (
         <div className="w-full bg-neutral-900 text-white ">
             <div className="grid grid-cols-5 gap-5 m-10">
-                <div className="col-span-2 bg-neutral-600 p-5 rounded-xl">
+                <div className="lg:col-span-2 col-span-5 bg-neutral-800 p-5 rounded-xl">
+                    <div className="lg:hidden block border border-neutral-500 p-1 rounded-sm cursor-pointer absolute"
+                        onClick={() => { console.log("sideBar clicked"); 
+                                        //return <SidebarOverlay /> 
+                                        }} >
+                         <SidebarExpand />
+                     </div>
                     <Favorite />
                     <Progress />
                 </div>
                 
-                <div className="col-span-3 rounded-xl">
-
+                <div className="lg:col-span-3 col-span-5 rounded-xl">
+                    
                    <div className="inline-flex items-center gap-1 rounded-3xl px-2
                                 bg-star-100 text-black p-1 cursor-pointer border border-transparent
                                 hover:text-white hover:bg-neutral-900 hover:border-neutral-100 mb-3"
@@ -31,34 +39,8 @@ export const Main = () => {
                     <div>
                         <FilterToggle>{toggleFilter}</FilterToggle>
                     </div> 
-                
-                    <div className="bg-neutral-600 rounded-lg">
-                        <Leet>14. Longest Common Prefix</Leet>
-                    </div>
-                    <div className=''>
-                        <Leet>217. Contains Duplicate</Leet>
-                    </div>
-                    <div className="bg-neutral-600 rounded-lg">
-                        <Leet>125. Valid Palindrome</Leet>
-                    </div>
-                    <div className=''>
-                        <Leet>26. Remove Duplicates from Sorted Array</Leet>
-                    </div>
-                    <div className="bg-neutral-600 rounded-lg">
-                        <Leet>66. Plus One</Leet>
-                    </div>
-                    <div className=''>
-                        <Leet>136. Single Number</Leet>
-                    </div>
-                    <div className="bg-neutral-600 rounded-lg">
-                        <Leet>121. Best Time to Buy and Sell Stocks</Leet>
-                    </div>
-                    <div className=''>
-                        <Leet>88. Merged Sorted Array</Leet>
-                    </div>
-                    <div className="bg-neutral-600 rounded-lg">
-                        <Leet>69. Sqrt(x) </Leet>
-                    </div>
+                    
+                    <EasyLeets />
                 </div>
             </div>
         </div>

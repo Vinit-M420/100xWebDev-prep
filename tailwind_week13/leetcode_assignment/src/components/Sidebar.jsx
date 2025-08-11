@@ -9,7 +9,7 @@ export const Sidebar = () => {
 
     if (toggleSidebar) {
         return (
-            <div className="h-screen w-80 transition-all duration-100 bg-neutral-800">
+            <div className="h-screen w-80 transition-all duration-100 bg-neutral-800 md:block hidden">
                 <div className="flex flex-col mx-5 my-8 gap-2">
                     <div className="flex justify-between p-1">
                         <h2 className="font-bold text-white text-lg">My Lists</h2>
