@@ -4,21 +4,21 @@ import { Check } from "../icons/check"
 export const Leet = ( {children } ) => {
     const [useDifficulty, setDifficulty] = useState('easy');
 
-    function difficulty() {
+    const Difficulty = () => {
         if (useDifficulty === 'easy'){
-            <h2 className="font-semibold text-blue-400">
+            return <h2 className="font-semibold text-blue-400">
                     Easy
             </h2>
         }
         else if (useDifficulty === 'med'){
-            <h2 className="font-semibold text-yellow-400">
+            return <h2 className="font-semibold text-yellow-400">
                     Medium
             </h2>
         }
         else if (useDifficulty === 'hard'){
-            <h2 className="font-semibold text-red-400">
+            return <h2 className="font-semibold text-red-400">
                     Hard
-            </h2>
+            </h2>   
         }
         }
     
@@ -34,9 +34,7 @@ export const Leet = ( {children } ) => {
                     </h2>
                 </div>
                 <div>
-                    <h2 className="font-semibold text-blue-400">
-                        Easy
-                    </h2>
+                    <Difficulty />
                 </div>
             </div>
         )

@@ -15,7 +15,8 @@ export const Main = ( { toggleSidebar, setToggleSidebar } ) => {
         <div className="w-full bg-neutral-900 text-white ">
             <div className="grid grid-cols-5 gap-5 m-10">
                 <div className="lg:col-span-2 col-span-5 bg-neutral-800 p-5 rounded-xl">
-                    <div className="md:hidden block border border-neutral-500 p-1 rounded-sm cursor-pointer absolute"
+                    <div className="md:hidden block hover:border hover:border-neutral-500 border border-transparent
+                                    p-1 rounded-sm cursor-pointer absolute"
                         onClick={() => { 
                                         if(toggleFilter === true && toggleSidebar === true){
                                             // setToggleFilter(!toggleFilter); 

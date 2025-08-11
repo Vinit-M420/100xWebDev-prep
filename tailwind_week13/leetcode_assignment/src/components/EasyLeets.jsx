@@ -4,7 +4,7 @@ export const EasyLeets = () => {
     return (
         <div className="">
             <div className="bg-neutral-800 rounded-lg">
-                <Leet>14. Longest Common Prefix</Leet>
+                <Leet >14. Longest Common Prefix</Leet>
             </div>
             <div className=''>
                 <Leet>217. Contains Duplicate</Leet>
