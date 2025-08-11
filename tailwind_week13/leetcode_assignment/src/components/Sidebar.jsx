@@ -1,15 +1,26 @@
-import { useState } from "react"
+import { useEffect, useState } from "react";
 import { SidebarClose } from "../icons/sidebar_close";
 import { SidebarExpand } from "../icons/sidebar_expand";
 import { Star } from "../icons/star";
 import { Lock } from "../icons/lock";
 
-export const Sidebar = () => {
-    const [toggleSidebar, setToggleSidebar] = useState(true);
+export const Sidebar = ( { toggleSidebar, setToggleSidebar } ) => {
+    // const [toggleSidebar, setToggleSidebar] = useState(true);
+    const isDesktop = useMediaQuery("(min-width: 768px)");
+
+    useEffect(() => {
+        if (isDesktop === false) {
+            setToggleSidebar(false);
+        } else {
+            setToggleSidebar(true);
+        }
+    }, [isDesktop]);
 
     if (toggleSidebar) {
         return (
-            <div className="h-screen w-80 transition-all duration-100 bg-neutral-800 md:block hidden">
+            <div className="h-screen w-80 transition-all duration-100 bg-neutral-800
+                shadow-2xl fixed left-0 top-0 z-40 md:relative md:z-auto md:shadow-none 
+                border-r border-neutral-700  ">
                 <div className="flex flex-col mx-5 my-8 gap-2">
                     <div className="flex justify-between p-1">
                         <h2 className="font-bold text-white text-lg">My Lists</h2>
@@ -17,7 +28,6 @@ export const Sidebar = () => {
                                         border border-transparent"
                             onClick={ () => { 
                                 setToggleSidebar(!toggleSidebar);
-                                //console.log("SideBar toggled"); 
                                 } }>
                             <SidebarClose  />
                         </div>
@@ -43,7 +53,7 @@ export const Sidebar = () => {
 
     else{
         return (
-            <div className="h-screen w-80 transition-all duration-100 bg-neutral-900">
+            <div className="h-screen w-80 transition-all duration-100 bg-neutral-900 md:block hidden">
                 <div className="flex flex-col mx-5 my-8 gap-2">
                     <div className="flex justify-between p-1">
                         <h2 className="font-bold text-white text-lg"></h2>
@@ -60,3 +70,20 @@ export const Sidebar = () => {
         )
     }
 }
+
+
+const useMediaQuery = (query) => {
+    const [matches, setMatches] = useState(false);
+
+    useEffect(() => {
+        const media = window.matchMedia(query);
+        if (media.matches !== matches) {
+            setMatches(media.matches);
+        }
+        const listener = (event) => setMatches(event.matches);
+        media.addEventListener("change", listener);
+        return () => media.removeEventListener("change", listener);
+    }, [matches, query]);
+
+    return matches;
+};

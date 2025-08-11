@@ -1,15 +1,15 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import { Sidebar } from './components/Sidebar'
 import { Main } from './components/Main'
 
 function App() {
-  //const [count, setCount] = useState(0)
+    const [toggleSidebar, setToggleSidebar] = useState(true);
 
   return (
     <div className='flex'>
-      <Sidebar />
-      <Main />
+      <Sidebar toggleSidebar={toggleSidebar} setToggleSidebar={setToggleSidebar} />
+      <Main toggleSidebar={toggleSidebar} setToggleSidebar={setToggleSidebar} />
     </div>
   )
 }

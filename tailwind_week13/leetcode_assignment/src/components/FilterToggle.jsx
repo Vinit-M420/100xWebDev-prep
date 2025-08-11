@@ -13,7 +13,7 @@ export const FilterToggle = ( { children } ) => {
                     <label>Todo</label>
                 </div>
                 <div className="flex gap-2">
-                    <input type="checkbox" value="Solved" class="cursor-pointer accent-white"></input>
+                    <input type="checkbox" value="Solved" class="cursor-pointer accent-white" checked></input>
                     <label>Solved</label>
                 </div>
                 <div className="flex gap-2">
@@ -23,9 +23,9 @@ export const FilterToggle = ( { children } ) => {
             </div>
 
             <h2>Difficulty</h2>
-            <div className="flex gap-3">
+            <div className="flex gap-5">
                 <div className="flex gap-2">
-                    <input type="checkbox" value="easy" class="cursor-pointer accent-white"></input>
+                    <input type="checkbox" value="easy" class="cursor-pointer accent-white" checked></input>
                     <label className="text-blue-400">Easy</label>
                 </div>
                 <div className="flex gap-2">
