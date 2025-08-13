@@ -3,6 +3,8 @@ import './App.css'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Features } from './components/Features'
+import { TabSwitching } from './components/TabSwitching'
+import { Download, DownloadBtn } from './components/Download'
 
 function App() {
 
@@ -11,6 +13,9 @@ function App() {
       <Header />
       <Hero />
       <Features />
+      <TabSwitching />
+      <Download />
+      <DownloadBtn />
     </>
   )
 }

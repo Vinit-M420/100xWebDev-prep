@@ -7,7 +7,7 @@ export const Header = () => {
                 <div className="bg-purple-500 rounded-3xl p-1.5 flex items-center">
                     <Bookmark size={16} />
                 </div>
-                <h1 className="text-xl font-bold">BOOKMARK</h1>
+                <h1 className="text-xl font-bold tracking-wide text-black">BOOKMARK</h1>
             </div>
             <div className="flex gap-10 items-center">
                 <h2 className="tracking-widest hover:text-orange-500 text-gray-500 font-medium">FEATURES</h2>
