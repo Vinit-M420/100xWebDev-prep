@@ -23,7 +23,7 @@ export const Hero = () => {
                 </div>
             </div>
             <div className="mt-10 w-1/2 mx-0 flex items-center">
-                <PurpleBlob />
+                {/* <PurpleBlob /> */}
                 <img src="https://tailwindfromscratch.com/website-projects/bookmark/images/illustration-hero.svg"
                     className="relative z-10 mx-auto">
                 </img>

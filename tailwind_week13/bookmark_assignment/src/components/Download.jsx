@@ -3,7 +3,7 @@
 export const Download = () => {
 
     return (
-        <div className="flex flex-col justify-center items-center mx-auto mt-40 px-6 max-w-5xl">
+        <div className="flex flex-col justify-center items-center mx-auto mt-40 px-6 max-w-5xl snap-y snap-mandatory">
             <h2 className="text-4xl text-black font-bold mb-6 text-center ">
                 Download the extension
             </h2>

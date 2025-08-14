@@ -3,24 +3,22 @@ import { DownArrow } from "../icons/DownArrow"
 
 export const FAQ = () => {
     return (
-            <div className="flex flex-col justify-center items-center mx-auto mt-20 px-6 max-w-5xl">
+            <div className="flex flex-col justify-center items-center mx-auto mt-20 px-6 max-w-5xl snap-y snap-mandatory">
                 <h2 className="text-4xl text-black font-bold mb-6 text-center ">
                     Frequently Asked Questions
                 </h2>
                 <p className="text-gray-500 font-medium text-md text-center max-w-lg">
                     Here are some of our FAQs. If you have any other questions you'd like answered please feel free to email us.</p>
             </div>
-
     )
 }
 
 export const MostFAQ = () => {
-    const [faq1 ,  setFaq1] = useState(false);
-    const [faq2 ,  setFaq2] = useState(false);
+    const [faq1,  setFaq1] = useState(false);
+    const [faq2,  setFaq2] = useState(false);
 
     return (
-            <div className="flex flex-col mx-auto max-w-3xl py-4 ">
-                
+            <div className="flex flex-col mx-auto max-w-3xl py-4 mb-32 ">
                 <div className="flex flex-col border-b border-gray-200 py-1 ">
                     <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
                         onClick={() => setFaq1(!faq1)}>
@@ -45,12 +43,8 @@ export const MostFAQ = () => {
                     <p className={`text-gray-400 transition duration-200 ${faq2 ? 'block' : 'hidden'}`} >
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, repellat amet doloribus consequuntur eos similique provident tempora voluptates iure quia fuga dicta voluptatibus culpa mollitia recusandae delectus id suscipit labore?
                     </p>
-                </div>
-
-            
-            </div>
-
-            
+                </div>  
+            </div>     
     )
 }
 
