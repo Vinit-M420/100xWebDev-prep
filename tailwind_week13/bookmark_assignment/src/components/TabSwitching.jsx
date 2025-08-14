@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { LPurpleBlob } from "./PurpleBlob"
 
 
 export const TabSwitching = () => {
@@ -23,72 +24,76 @@ export const TabSwitching = () => {
                     <h3>Easy Searching</h3>
                 </div>
             </div>
-            <div className={`${currentTab === "simple" ? "block" : "hidden"}`}>
-                <div className="flex flex-row p-6 gap-5 max-w-5xl mx-auto">
-                    <div className="w-1/2 flex justify-center items-center">
-                        <img src="https://tailwindfromscratch.com/website-projects/bookmark/images/illustration-features-tab-1.svg"
-                            className="w-[100%] h-auto object-contain" />
+            <div> <LPurpleBlob />
+            <div className="z-10 relative">
+                <div className={`${currentTab === "simple" ? "block" : "hidden"}`}>
+                    <div className="flex flex-row p-6 gap-5 max-w-5xl mx-auto">
+                        <div className="w-1/2 flex justify-center items-center">
+                            <img src="https://tailwindfromscratch.com/website-projects/bookmark/images/illustration-features-tab-1.svg"
+                                className="w-[100%] h-auto object-contain" />
+                        </div>
+                        <div className="w-1/2 flex flex-col space-y-10">
+                            <h1 className="text-3xl font-bold text-left">
+                                Bookmark in one click
+                            </h1>
+                            <p className="text-lg text-gray-400 text-left tracking-tight">
+                                Organize your bookmarks however you like. Our simple drag-and-drop interface 
+                                gives you complete control over how you manage your favourite sites.
+                            </p>
+                            <div className="inline-flex">
+                                <div className="bg-purple-500 font-semibold text-lg text-white p-3 rounded-lg cursor-pointer
+                                                border-2 border-transparent hover:bg-white hover:text-purple-500 hover:border-purple-500">
+                                    More Info
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="w-1/2 flex flex-col space-y-10">
-                        <h1 className="text-3xl font-bold text-left">
-                            Bookmark in one click
-                        </h1>
-                        <p className="text-lg text-gray-400 text-left tracking-tight">
-                            Organize your bookmarks however you like. Our simple drag-and-drop interface 
-                            gives you complete control over how you manage your favourite sites.
-                        </p>
-                        <div className="inline-flex">
-                            <div className="bg-purple-500 font-semibold text-lg text-white p-3 rounded-lg cursor-pointer
-                                            border-2 border-transparent hover:bg-white hover:text-purple-500 hover:border-purple-500">
-                                More Info
+                </div>
+                <div className={`${currentTab === "speedy" ? "block" : "hidden"}`}>
+                    <div className="flex flex-row p-6 gap-5 max-w-5xl mx-auto">
+                        <div className="w-1/2 flex justify-center items-center">
+                            <img src="https://tailwindfromscratch.com/website-projects/bookmark/images/illustration-features-tab-2.svg"
+                                className="w-[100%] h-auto object-contain" />
+                        </div>
+                        <div className="w-1/2 flex flex-col space-y-10">
+                            <h1 className="text-3xl font-bold text-left">
+                                Intelligent search
+                            </h1>
+                            <p className="text-lg text-gray-400 text-left tracking-tight">
+                                Our powerful search feature will help you find saved sites in no time at all. No need to trawl through all of your bookmarks.
+                            </p>
+                            <div className="inline-flex">
+                                <div className="bg-purple-500 font-semibold text-lg text-white p-3 rounded-lg cursor-pointer
+                                                border-2 border-transparent hover:bg-white hover:text-purple-500 hover:border-purple-500">
+                                    More Info
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className={`${currentTab === "easy" ? "block" : "hidden"}`}>
+                    <div className="flex flex-row p-6 gap-5 max-w-5xl mx-auto">
+                        <div className="w-1/2 flex justify-center items-center">
+                            <img src="https://tailwindfromscratch.com/website-projects/bookmark/images/illustration-features-tab-3.svg"
+                                className="w-[100%] h-auto object-contain" />
+                        </div>
+                        <div className="w-1/2 flex flex-col space-y-10">
+                            <h1 className="text-3xl font-bold text-left">
+                                Share your bookmarks
+                            </h1>
+                            <p className="text-lg text-gray-400 text-left tracking-tight">
+                                Easily share your bookmarks and collections with others. Create a shareable a link that you can send at the click of a button.
+                            </p>
+                            <div className="inline-flex">
+                                <div className="bg-purple-500 font-semibold text-lg text-white p-3 rounded-lg cursor-pointer
+                                                border-2 border-transparent hover:bg-white hover:text-purple-500 hover:border-purple-500">
+                                    More Info
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className={`${currentTab === "speedy" ? "block" : "hidden"}`}>
-                <div className="flex flex-row p-6 gap-5 max-w-5xl mx-auto">
-                    <div className="w-1/2 flex justify-center items-center">
-                        <img src="https://tailwindfromscratch.com/website-projects/bookmark/images/illustration-features-tab-2.svg"
-                            className="w-[100%] h-auto object-contain" />
-                    </div>
-                    <div className="w-1/2 flex flex-col space-y-10">
-                        <h1 className="text-3xl font-bold text-left">
-                            Intelligent search
-                        </h1>
-                        <p className="text-lg text-gray-400 text-left tracking-tight">
-                            Our powerful search feature will help you find saved sites in no time at all. No need to trawl through all of your bookmarks.
-                        </p>
-                        <div className="inline-flex">
-                            <div className="bg-purple-500 font-semibold text-lg text-white p-3 rounded-lg cursor-pointer
-                                            border-2 border-transparent hover:bg-white hover:text-purple-500 hover:border-purple-500">
-                                More Info
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className={`${currentTab === "easy" ? "block" : "hidden"}`}>
-                <div className="flex flex-row p-6 gap-5 max-w-5xl mx-auto">
-                    <div className="w-1/2 flex justify-center items-center">
-                        <img src="https://tailwindfromscratch.com/website-projects/bookmark/images/illustration-features-tab-3.svg"
-                            className="w-[100%] h-auto object-contain" />
-                    </div>
-                    <div className="w-1/2 flex flex-col space-y-10">
-                        <h1 className="text-3xl font-bold text-left">
-                            Share your bookmarks
-                        </h1>
-                        <p className="text-lg text-gray-400 text-left tracking-tight">
-                            Easily share your bookmarks and collections with others. Create a shareable a link that you can send at the click of a button.
-                        </p>
-                        <div className="inline-flex">
-                            <div className="bg-purple-500 font-semibold text-lg text-white p-3 rounded-lg cursor-pointer
-                                            border-2 border-transparent hover:bg-white hover:text-purple-500 hover:border-purple-500">
-                                More Info
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     )

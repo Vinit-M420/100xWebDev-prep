@@ -5,6 +5,7 @@ import { Hero } from './components/Hero'
 import { Features } from './components/Features'
 import { TabSwitching } from './components/TabSwitching'
 import { Download, DownloadBtn } from './components/Download'
+import { FAQ, MostFAQ } from './components/FAQ'
 
 function App() {
 
@@ -16,6 +17,8 @@ function App() {
       <TabSwitching />
       <Download />
       <DownloadBtn />
+      <FAQ />
+      <MostFAQ />
     </>
   )
 }

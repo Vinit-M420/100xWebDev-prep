@@ -3,7 +3,7 @@
 export const Download = () => {
 
     return (
-        <div className="flex flex-col justify-center items-center mx-auto mt-20 px-6 max-w-5xl">
+        <div className="flex flex-col justify-center items-center mx-auto mt-40 px-6 max-w-5xl">
             <h2 className="text-4xl text-black font-bold mb-6 text-center ">
                 Download the extension
             </h2>
@@ -17,7 +17,7 @@ export const Download = () => {
 export const DownloadBtn = () => {
     return (
         <div className="py-32">
-            <div className="flex justify-evenly mx-auto space-y-7 max-w-5xl px-10 py-5">
+            <div className="flex justify-evenly mx-auto max-w-5xl px-10 py-5">
                 <div className="flex flex-col gap-4 py-5 shadow-xl rounded-xl">
                     
                     <div className="flex flex-col  py-5 px-5  text-center gap-4 border-b-4 border-dotted border-gray-300">
