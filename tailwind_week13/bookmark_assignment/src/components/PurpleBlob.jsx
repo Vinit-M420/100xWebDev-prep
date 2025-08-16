@@ -4,7 +4,7 @@ export const PurpleBlob = () => {
   return (
     <svg
       viewBox="0 0 1200 600"
-      className="absolute right-0 top-1/2 translate-y-5 translate-x-50 w-[65vw] max-w-[700px] h-[300px]"
+      className="absolute w-[65vw] max-w-[00px] h-[300px] translate-y-20" //translate-x-50
       aria-hidden="true"
     >
       <defs>

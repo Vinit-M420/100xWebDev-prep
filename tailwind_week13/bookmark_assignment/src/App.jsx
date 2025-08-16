@@ -20,10 +20,9 @@ function App() {
   };
 
   return (
-    <body>
-      <Header scrollToRef={scrollToRef} featuresRef={ref2} downloadRef={ref3} faqRef={ref4} />
-
+    <div className='scroll-smooth'>
       <div ref={ref1}>
+          <Header scrollToRef={scrollToRef} featuresRef={ref2} downloadRef={ref3} faqRef={ref4} />
           <Hero />
       </div>
 
@@ -34,16 +33,17 @@ function App() {
 
       <div ref={ref3}>
         <Download />
-        <DownloadBtn />
+        <DownloadBtn scrollToRef={scrollToRef} heroRef={ref1} />
       </div>
+
       <div ref={ref4}>
         <FAQ />
         <MostFAQ />
       </div>
+
       <EmailBanner />
-      
       <Footer scrollToRef={scrollToRef} featuresRef={ref2} downloadRef={ref3} faqRef={ref4} />
-    </body>
+    </div>
   )
 }
 

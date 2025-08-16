@@ -1,10 +1,10 @@
-import { useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { DownArrow } from "../icons/DownArrow"
 
 export const FAQ = () => {
     return (
-            <div className="flex flex-col justify-center items-center mx-auto mt-20 px-6 max-w-5xl snap-y snap-mandatory">
-                <h2 className="text-4xl text-black font-bold mb-6 text-center ">
+            <div className="flex flex-col justify-center items-center mx-auto mt-20 px-6 md:max-w-5xl w-lg snap-y snap-mandatory">
+                <h2 className="md:text-4xl text-3xl text-black font-bold mb-6 text-center ">
                     Frequently Asked Questions
                 </h2>
                 <p className="text-gray-500 font-medium text-md text-center max-w-lg">
@@ -14,36 +14,88 @@ export const FAQ = () => {
 }
 
 export const MostFAQ = () => {
-    const [faq1,  setFaq1] = useState(false);
-    const [faq2,  setFaq2] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(null);
+    const faqRef = useRef(null);
+
+    const toggleFaq = (index) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
+
+    useEffect(() =>{
+        const handleClickOutside = (event) => {
+            if (faqRef.current && !faqRef.current.contains(event.target)) {
+                setActiveIndex(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }
+    ,[])
 
     return (
-            <div className="flex flex-col mx-auto max-w-3xl py-4 mb-32 ">
+            <div ref={faqRef} className="flex flex-col mx-auto md:max-w-3xl w-md py-4 mb-32 ">
                 <div className="flex flex-col border-b border-gray-200 py-1 ">
                     <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
-                        onClick={() => setFaq1(!faq1)}>
-                        <h2 className="hover:text-orange-500">
+                        onClick={() =>  toggleFaq(0)}>
+                        <h2 className="hover:text-orange-500 font-semibold">
                             What is Bookmark?</h2>
                         <DownArrow 
-                        className={`transform duration-200 ${faq1 ? 'rotate-180 text-orange-500' : ''}`} />
+                        className={`transform duration-500 ${activeIndex === 0 ? 'rotate-180 text-orange-500' : ''}`} />
                     </div>
-                    <p className={`text-gray-400 transition duration-200 ${faq1 ? 'block' : 'hidden'}`} >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, repellat amet doloribus consequuntur eos similique provident tempora voluptates iure quia fuga dicta voluptatibus culpa mollitia recusandae delectus id suscipit labore?
-                    </p>
+                    <div className={`overflow-hidden transition-all duration-500 ${activeIndex === 0 ? 'max-h-32' : 'max-h-0'}`}>
+                        <p className="text-gray-400 mb-1 px-1">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, repellat amet doloribus consequuntur eos similique provident tempora voluptates iure quia fuga dicta voluptatibus culpa mollitia recusandae delectus id suscipit labore?
+                        </p>
+                    </div>
                 </div>
 
                 <div className="flex flex-col border-b border-gray-200 py-1">
                     <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
-                        onClick={() => setFaq2(!faq2) }>
-                        <h2 className="hover:text-orange-500">
+                        onClick={() =>  toggleFaq(1) }>
+                        <h2 className="hover:text-orange-500 font-semibold">
                             How can I request a new browser?</h2>
                         <DownArrow 
-                        className={`transform duration-200 ${faq2 ? 'rotate-180 text-orange-500' : ''}`} />
+                        className={`transform duration-500 ${activeIndex === 1 ? 'rotate-180 text-orange-500' : ''}`} />
                     </div>
-                    <p className={`text-gray-400 transition duration-200 ${faq2 ? 'block' : 'hidden'}`} >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, repellat amet doloribus consequuntur eos similique provident tempora voluptates iure quia fuga dicta voluptatibus culpa mollitia recusandae delectus id suscipit labore?
-                    </p>
+                    <div className={`overflow-hidden transition-all duration-500 ${activeIndex === 1 ? 'max-h-32' : 'max-h-0'}`}>
+                        <p className="text-gray-400 mb-1 px-1">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, repellat amet doloribus consequuntur eos similique provident tempora voluptates iure quia fuga dicta voluptatibus culpa mollitia recusandae delectus id suscipit labore?
+                        </p>
+                    </div>
                 </div>  
+                
+                <div className="flex flex-col border-b border-gray-200 py-1">
+                    <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
+                        onClick={() =>  toggleFaq(2) }>
+                        <h2 className="hover:text-orange-500 font-semibold">
+                            Is ther a mobile app?</h2>
+                        <DownArrow 
+                        className={`transform duration-500 ${activeIndex === 2 ? 'rotate-180 text-orange-500' : ''}`} />
+                    </div>
+                    <div className={`overflow-hidden transition-all duration-500 ${activeIndex === 2 ? 'max-h-32' : 'max-h-0'}`}>
+                        <p className="text-gray-400 mb-1 px-1">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, repellat amet doloribus consequuntur eos similique provident tempora voluptates iure quia fuga dicta voluptatibus culpa mollitia recusandae delectus id suscipit labore?
+                        </p>
+                    </div>
+                </div> 
+
+                <div className="flex flex-col border-b border-gray-200 py-1">
+                    <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
+                        onClick={() =>  toggleFaq(3) }>
+                        <h2 className="hover:text-orange-500 font-semibold">
+                            What about other Chromium browsers</h2>
+                        <DownArrow 
+                        className={`transform duration-500 ${activeIndex === 3 ? 'rotate-180 text-orange-500' : ''}`} />
+                    </div>
+                    <div className={`overflow-hidden transition-all duration-500 ${activeIndex === 3 ? 'max-h-32' : 'max-h-0'}`}>
+                        <p className="text-gray-400 mb-1 px-1">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat, repellat amet doloribus consequuntur eos similique provident tempora voluptates iure quia fuga dicta voluptatibus culpa mollitia recusandae delectus id suscipit labore?
+                        </p>
+                    </div>
+                </div>    
             </div>     
     )
 }
