@@ -3,7 +3,7 @@ import { DownArrow } from "../icons/DownArrow"
 
 export const FAQ = () => {
     return (
-            <div className="flex flex-col justify-center items-center mx-auto mt-20 px-6 md:max-w-5xl w-lg snap-y snap-mandatory">
+            <div className="flex flex-col justify-center items-center mx-auto mt-20 px-6 snap-y snap-mandatory">
                 <h2 className="md:text-4xl text-3xl text-black font-bold mb-6 text-center ">
                     Frequently Asked Questions
                 </h2>
@@ -36,10 +36,10 @@ export const MostFAQ = () => {
     ,[])
 
     return (
-            <div ref={faqRef} className="flex flex-col mx-auto md:max-w-3xl w-md py-4 mb-32 ">
-                <div className="flex flex-col border-b border-gray-200 py-1 ">
+            <div ref={faqRef} className="flex flex-col mx-auto md:w-2xl w-md py-4 mb-32">
+                <div className="flex flex-col border-b border-gray-200 py-1">
                     <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
-                        onClick={() =>  toggleFaq(0)}>
+                        onClick={() => toggleFaq(0)}>
                         <h2 className="hover:text-orange-500 font-semibold">
                             What is Bookmark?</h2>
                         <DownArrow 

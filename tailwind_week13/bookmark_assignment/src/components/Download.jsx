@@ -7,7 +7,7 @@ export const Download = () => {
             <h2 className="md:text-4xl text-3xl text-black font-bold mb-6 text-center ">
                 Download the extension
             </h2>
-            <p className="text-gray-500 font-medium text-md text-center max-w-lg">
+            <p className="text-gray-500 text-md text-center max-w-lg">
                 We've got more browsers in the pipeline. Please do let us know if you've got a favourite you'd like us to prioritize.
             </p>
         </div>
@@ -17,7 +17,7 @@ export const Download = () => {
 export const DownloadBtn = ({ scrollToRef, heroRef }) => {
     return (
         <div className="py-32">
-            <div className="md:flex flex-col justify-evenly mx-auto max-w-5xl px-10 py-5">
+            <div className="md:flex md:flex-row flex-col justify-evenly mx-auto max-w-5xl px-10 py-5">
                 <div className="flex flex-col gap-4 py-5 shadow-xl rounded-xl">
                     
                     <div className="flex flex-col  py-5 px-5  text-center gap-4 border-b-4 border-dotted border-gray-300">
