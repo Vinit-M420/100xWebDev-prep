@@ -36,7 +36,7 @@ export const MostFAQ = () => {
     ,[])
 
     return (
-            <div ref={faqRef} className="flex flex-col mx-auto md:w-2xl w-[300px] py-4 mb-32">
+            <div ref={faqRef} className="flex flex-col mx-auto lg:w-2xl md:w-xl w-[300px] py-4 mb-32">
                 <div className="flex flex-col border-b border-gray-200 py-1">
                     <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
                         onClick={() => toggleFaq(0)}>
