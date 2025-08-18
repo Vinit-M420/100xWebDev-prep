@@ -4,16 +4,15 @@ export const PurpleBlob = () => {
   return (
     <svg
       viewBox="0 0 1200 600"
-      className="absolute w-[65vw] max-w-[00px] h-[300px] translate-y-20" //translate-x-50
-      aria-hidden="true"
-    >
+      className="absolute -right-70 xl:w-[60vw] lg:w-[40vw] max-w-[700px] h-[300px] translate-y-50
+                 lg:block hidden" 
+      aria-hidden="true">
       <defs>
         <linearGradient id="blobFill" x1="0" x2="0" y1="0" y2="1">
           <stop offset="0%" stopColor="#4F46E5" />
           <stop offset="100%" stopColor="#4F46E5" />
         </linearGradient>
       </defs>
-      {/* Path: semicircle (left) + rectangle (right) */}
       <path
         d="
           M 300 300
@@ -36,7 +35,8 @@ export const LPurpleBlob = () => {
   return (
     <svg
       viewBox="0 0 1200 600"
-      className="absolute rotate-180 -left-20 w-[65vw] max-w-[700px] h-[300px] translate-y-50"
+      className="absolute rotate-180 -left-20 xl:w-[60vw] lg:w-[40vw] max-w-[700px] h-[300px] translate-y-50
+                transition duration-500"
       aria-hidden="true">
       <defs>
         <linearGradient id="blobFill" x1="0" x2="0" y1="0" y2="1">

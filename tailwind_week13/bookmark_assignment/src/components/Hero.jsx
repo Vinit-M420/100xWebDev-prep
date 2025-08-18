@@ -1,9 +1,8 @@
 import { PurpleBlob } from "./PurpleBlob"
-
-
 export const Hero = () => {
     return (
-        <div className="flex lg:flex-row lg:gap-5 p-5 max-w-5xl mx-auto overflow-x-hidden flex-col-reverse items-center">
+        <div className="flex lg:flex-row lg:gap-5 p-5 max-w-5xl mx-auto w-screen relative overflow-visible
+                        flex-col-reverse items-center">
             <div className="flex flex-col space-y-10 lg:mt-10 lg:w-1/2 w-full items-center lg:items-start">
                 <div className="w-full max-w-md lg:max-w-none flex flex-col space-y-10">
                 <h1 className="lg:text-6xl lg:pt-10 lg:text-left font-bold tracking-normal text-center text-3xl">
@@ -27,10 +26,10 @@ export const Hero = () => {
                 </div>
             </div>
 
-            <div className="mt-10 lg:w-1/2 w-md mx-0 flex items-center relative">
-                <PurpleBlob />
+            <div className="">
+                {/* <PurpleBlob /> */}
                 <img src="https://tailwindfromscratch.com/website-projects/bookmark/images/illustration-hero.svg"
-                    className="relative z-10 mx-auto ">
+                    className="relative z-10 ">
                 </img>
             </div>
         </div>

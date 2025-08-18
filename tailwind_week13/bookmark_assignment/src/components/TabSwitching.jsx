@@ -27,7 +27,7 @@ export const TabSwitching = () => {
             </div>
 
             <div> 
-                <div className="lg:block hidden">
+                <div className="md:block hidden">
                     <LPurpleBlob />
                 </div>
 
@@ -42,7 +42,7 @@ export const TabSwitching = () => {
                                 <h1 className="text-3xl font-bold md:text-left text-center">
                                     Bookmark in one click
                                 </h1>
-                                <p className="text-lg text-gray-400 md:text-left text-center tracking-tight md:w-lg w-md mx-auto">
+                                <p className="text-lg text-gray-400 md:text-left text-center tracking-tight lg:w-lg w-md mx-auto">
                                     Organize your bookmarks however you like. Our simple drag-and-drop interface 
                                     gives you complete control over how you manage your favourite sites.
                                 </p>
@@ -66,7 +66,7 @@ export const TabSwitching = () => {
                                 <h1 className="text-3xl font-bold md:text-left text-center">
                                     Intelligent search
                                 </h1>
-                                <p className="text-lg text-gray-400 md:text-left text-center tracking-tight md:w-lg w-md mx-auto">
+                                <p className="text-lg text-gray-400 md:text-left text-center tracking-tight lg:w-lg w-md mx-auto">
                                     Our powerful search feature will help you find saved sites in no time at all. No need to trawl through all of your bookmarks.
                                 </p>
                                 <div className="inline-flex md:justify-start justify-center">
@@ -88,7 +88,7 @@ export const TabSwitching = () => {
                                 <h1 className="text-3xl font-bold md:text-left text-center">
                                     Share your bookmarks
                                 </h1>
-                                <p className="text-lg text-gray-400 md:text-left text-center tracking-tight md:w-lg w-md mx-auto">
+                                <p className="text-lg text-gray-400 md:text-left text-center tracking-tight lg:w-lg w-md mx-auto">
                                     Easily share your bookmarks and collections with others. Create a shareable a link that you can send at the click of a button.
                                 </p>
                                 <div className="inline-flex md:justify-start justify-center">
