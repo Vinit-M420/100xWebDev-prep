@@ -3,7 +3,8 @@ export const EmailBanner = () => {
     return <div className="bg-purple-500 py-24 mx-auto">
         <div className="flex flex-col gap-6 items-center text-white">
             <h3 className="text-semibold tracking-widest text-lg uppercase" >35,000+ ALREADY JOINED</h3>
-            <h1 className="text-3xl font-semibold max-w-sm text-center mb-2">Stay up-to-date with what we're doing</h1>
+            <h1 className="text-3xl font-bold max-w-sm text-center mb-2 ">
+                Stay up-to-date with what we're doing</h1>
             
             <div className="flex flex-col md:flex-row gap-4 w-full max-w-xs md:max-w-none md:w-auto">
                 <input type="text" id="user-email" placeholder="Enter your email address" 

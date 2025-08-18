@@ -8,7 +8,7 @@ export const Header = ({ scrollToRef, featuresRef, downloadRef, faqRef }) => {
 
     if (toggleHeader) {
         return (
-            <div className="fixed inset-0 bg-[#3a4058]/95 z-50">
+            <div className="fixed inset-0 bg-[#3a4058]/95 z-50 mx-auto">
                 <div className="flex justify-around py-10">
                     <div className="flex gap-3">
                         <div className="bg-purple-500 rounded-3xl p-1.5 flex items-center">
@@ -21,19 +21,19 @@ export const Header = ({ scrollToRef, featuresRef, downloadRef, faqRef }) => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-10 w-md mx-auto text-center z-40">
-                        <h2 className="tracking-widest hover:text-orange-500 text-white font-medium
-                                    border-b border-gray-400 pb-2"
+                <div className="flex flex-col gap-10 w-md text-center z-40 mx-auto">
+                        <h2 className="tracking-widest hover:text-orange-500 text-white font-medium 
+                                      border-b border-gray-400 pb-2 mx-auto"
                             onClick={() => scrollToRef(featuresRef)}>
                         FEATURES</h2>
 
-                    <h2 className="tracking-widest hover:text-orange-500 text-white font-medium
-                                    border-b border-gray-400 pb-2"
+                    <h2 className="tracking-widest hover:text-orange-500 text-white font-medium 
+                                    border-b border-gray-400 pb-2 mx-auto"
                         onClick={() => scrollToRef(downloadRef)}>
                     DOWNLOAD</h2>
 
                     <h2 className="tracking-widest hover:text-orange-500 text-white font-medium
-                                    border-b border-gray-400 pb-2"
+                                    border-b border-gray-400 pb-2 mx-auto"
                         onClick={() => scrollToRef(faqRef)}>
                     FAQ</h2>
 

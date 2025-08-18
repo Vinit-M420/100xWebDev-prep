@@ -36,11 +36,11 @@ export const MostFAQ = () => {
     ,[])
 
     return (
-            <div ref={faqRef} className="flex flex-col mx-auto md:w-2xl w-md py-4 mb-32">
+            <div ref={faqRef} className="flex flex-col mx-auto md:w-2xl w-[300px] py-4 mb-32">
                 <div className="flex flex-col border-b border-gray-200 py-1">
                     <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
                         onClick={() => toggleFaq(0)}>
-                        <h2 className="hover:text-orange-500 font-semibold">
+                        <h2 className="hover:text-orange-500 font-semibold md:text-md text-sm">
                             What is Bookmark?</h2>
                         <DownArrow 
                         className={`transform duration-500 ${activeIndex === 0 ? 'rotate-180 text-orange-500' : ''}`} />
@@ -55,7 +55,7 @@ export const MostFAQ = () => {
                 <div className="flex flex-col border-b border-gray-200 py-1">
                     <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
                         onClick={() =>  toggleFaq(1) }>
-                        <h2 className="hover:text-orange-500 font-semibold">
+                        <h2 className="hover:text-orange-500 font-semibold md:text-md text-sm">
                             How can I request a new browser?</h2>
                         <DownArrow 
                         className={`transform duration-500 ${activeIndex === 1 ? 'rotate-180 text-orange-500' : ''}`} />
@@ -70,7 +70,7 @@ export const MostFAQ = () => {
                 <div className="flex flex-col border-b border-gray-200 py-1">
                     <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
                         onClick={() =>  toggleFaq(2) }>
-                        <h2 className="hover:text-orange-500 font-semibold">
+                        <h2 className="hover:text-orange-500 font-semibold md:text-md text-sm">
                             Is ther a mobile app?</h2>
                         <DownArrow 
                         className={`transform duration-500 ${activeIndex === 2 ? 'rotate-180 text-orange-500' : ''}`} />
@@ -85,7 +85,7 @@ export const MostFAQ = () => {
                 <div className="flex flex-col border-b border-gray-200 py-1">
                     <div className="flex justify-between py-3 px-1 text-gray-500 cursor-pointer"
                         onClick={() =>  toggleFaq(3) }>
-                        <h2 className="hover:text-orange-500 font-semibold">
+                        <h2 className="hover:text-orange-500 font-semibold md:text-md text-sm">
                             What about other Chromium browsers</h2>
                         <DownArrow 
                         className={`transform duration-500 ${activeIndex === 3 ? 'rotate-180 text-orange-500' : ''}`} />
