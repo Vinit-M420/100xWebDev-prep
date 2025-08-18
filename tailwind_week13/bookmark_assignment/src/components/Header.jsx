@@ -21,23 +21,23 @@ export const Header = ({ scrollToRef, featuresRef, downloadRef, faqRef }) => {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-10 w-md text-center z-40 mx-auto">
+                <div className="flex flex-col gap-10 items-center justify-center px-4 w-full max-w-sm mx-auto">
                         <h2 className="tracking-widest hover:text-orange-500 text-white font-medium 
-                                      border-b border-gray-400 pb-2 mx-auto"
+                                      border-b border-gray-400 pb-2 w-full text-center"
                             onClick={() => scrollToRef(featuresRef)}>
                         FEATURES</h2>
 
                     <h2 className="tracking-widest hover:text-orange-500 text-white font-medium 
-                                    border-b border-gray-400 pb-2 mx-auto"
+                                    border-b border-gray-400 pb-2 w-full text-center"
                         onClick={() => scrollToRef(downloadRef)}>
                     DOWNLOAD</h2>
 
                     <h2 className="tracking-widest hover:text-orange-500 text-white font-medium
-                                    border-b border-gray-400 pb-2 mx-auto"
+                                    border-b border-gray-400 pb-2 w-full text-center"
                         onClick={() => scrollToRef(faqRef)}>
                     FAQ</h2>
 
-                    <div className="tracking-widest hover:text-orange-500 text-white font-medium">
+                    <div className="tracking-widest hover:text-orange-500 text-white font-medium w-full text-center">
                         <h3>LOGIN</h3>
                     </div>
                 </div>
