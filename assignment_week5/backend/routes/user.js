@@ -47,7 +47,7 @@ router.post("/signup", async function (req,res) {
             password: hashedPassword
         });
 
-        res.status(200).json({ message: "User created successfully!" })
+        	
 
     } catch(err){
         console.log(err);

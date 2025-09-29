@@ -7,7 +7,7 @@ export const Download = () => {
             <h2 className="md:text-4xl text-3xl text-black font-bold mb-6 text-center ">
                 Download the extension
             </h2>
-            <p className="text-gray-500 text-md text-center max-w-lg">
+            <p className="text-gray-500 text-md text-center max-w-md">
                 We've got more browsers in the pipeline. Please do let us know if you've got a favourite you'd like us to prioritize.
             </p>
         </div>
