@@ -9,18 +9,16 @@ ws.on("connection", (socket) => {
     console.log("user connected #", userCount);
     socket.on("message", (message) => {
         const parsedMessage = JSON.parse(message.toString());
-        // @ts-ignore
         if (parsedMessage.type == 'join') {
             console.log("socket pushed");
             allSockets.push({
                 socket: socket,
-                // @ts-ignore
                 room: parsedMessage.payload.roomId
             });
         }
-        // @ts-ignore
         if (parsedMessage.type == 'chat') {
             let currentUserRoom = null;
+            let currentSocketUser = socket;
             for (let i = 0; i < allSockets.length; i++) {
                 if (allSockets[i]?.socket == socket) {
                     currentUserRoom = allSockets[i]?.room;
@@ -29,9 +27,7 @@ ws.on("connection", (socket) => {
                 }
             }
             for (let i = 0; i < allSockets.length; i++) {
-                // @ts-ignore
-                if (allSockets[i]?.room == currentUserRoom) {
-                    // @ts-ignore
+                if (allSockets[i]?.room == currentUserRoom && allSockets[i]?.socket !== currentSocketUser) {
                     allSockets[i]?.socket.send(parsedMessage.payload.message);
                 }
             }
