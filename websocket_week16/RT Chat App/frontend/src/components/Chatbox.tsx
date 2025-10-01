@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Copy, X, MessageSquareX } from 'lucide-react';
 import { useAlertStore, useRoomJoinedStore, useRoomStore } from '../store';
+import { useNavigate } from "react-router-dom";
 
 interface MsgInfo {
     message: string,
@@ -15,7 +16,7 @@ const Chatbox = () => {
     const modalAlert = useRef(null);
     const wsRef = useRef<WebSocket | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    
+    const navigate = useNavigate();
     
     
     useEffect(() => {
@@ -65,7 +66,7 @@ const Chatbox = () => {
 
     return (
         
-        <div className='flex flex-col justify-center items-center mt-5 gap-5'>
+        <div className='flex flex-col justify-center items-center mt-5 gap-5 animate-[scaleIn_0.3s_ease-out]'>
             {roomCode && (
             <div className='flex flex-col justify-center items-center gap-2'>
                 <h1 className='text-white text-4xl'>Real Time Chat Room</h1>
@@ -83,7 +84,9 @@ const Chatbox = () => {
                 </h3>
             </div>
             )}
-            <div className='border border-gray-500 rounded-xl h-[500px] w-[700px] 
+
+            {/* Chat Box */}
+            <div className='border border-gray-500 h-[500px] w-[700px] rounded
                         bg-black p-6 overflow-y-auto scroll-smooth scrollbar'>
                 <div className='flex flex-col gap-2'>
                     {messages.map((msgInfo, index) => 
@@ -96,6 +99,7 @@ const Chatbox = () => {
                 </div>
             </div>
 
+        {/* Input Section */}            
         <div className='flex gap-5'>
             <input ref={inputRef} type="text" placeholder='Message ...' 
                 className='border border-gray-500 rounded-xl text-white bg-black
@@ -114,11 +118,13 @@ const Chatbox = () => {
             onClick={() =>{
                 setRoomCode('');
                 setRoomJoined(false);
+                navigate("/")
             }}>
             <MessageSquareX className='size-4'/>
             <span>Leave Chat Room</span>
         </div>
 
+        {/* Alert */}    
         {toggleAlert && (
             <div ref={modalAlert}
                 role="alert"

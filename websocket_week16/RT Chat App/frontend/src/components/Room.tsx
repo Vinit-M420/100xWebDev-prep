@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
-// import { Navigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { useAlertStore, useRoomJoinedStore, useRoomStore } from "../store";
 import { Copy, X } from 'lucide-react';
 
@@ -9,6 +8,7 @@ const Room = () => {
     const {toggleAlert, setToggleAlert} = useAlertStore();
     const { setRoomJoined } = useRoomJoinedStore();
     const modalAlert = useRef(null);
+    const navigate = useNavigate(); 
     
     function generateRoomCode(){
         const newRoomCode = Array.from({ length: 6 }, () => 
@@ -30,18 +30,17 @@ const Room = () => {
     return (
         <div className='flex flex-col justify-center items-center gap-5 h-screen'>
             <h1 className='text-white text-4xl'>Real Time Chat Room</h1>     
-            
+            {/* <h2 className="w-lg text-center">Simple Chat Rooms to communicate with your buddies</h2> */}
             <button 
                 className='bg-white text-black py-2 px-6 rounded-2xl font-semibold
                     transition duration-100 hover:bg-gray-200 cursor-pointer'
-                onClick={generateRoomCode}
-            >
+                onClick={generateRoomCode}>
                 Create Room
             </button>
 
             {roomCode && (
                 <div className="border border-gray-500 rounded-xl bg-black p-4 overflow-y-auto 
-                                w-fit h-auto">
+                                w-fit h-auto animate-[pop_0.3s_ease-out]">
                     <div className="flex gap-10">
                         <div className="flex gap-3 items-center">
                             <span className="text-4xl tracking-widest font-semibold text-gray-400">
@@ -56,7 +55,9 @@ const Room = () => {
                         </div>
                         <button className='bg-white text-black py-2 px-6 rounded-2xl font-semibold
                             transition duration-100 hover:bg-gray-200 cursor-pointer'
-                            onClick={() => setRoomJoined(true)}>
+                            onClick={() => {
+                                setRoomJoined(true);
+                                navigate(`/room/${roomCode}`);}}>
                             Join
                         </button>
                     </div>
