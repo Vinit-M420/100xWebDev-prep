@@ -6,9 +6,8 @@ interface User {
 }
 
 let allSockets : User[] = [];
-
-const ws = new WebSocket.WebSocketServer({ port: 8069 });
 let userCount = 0;
+const ws = new WebSocket.WebSocketServer({ port: 8069 });
 
 
 ws.on("connection", (socket) => {
