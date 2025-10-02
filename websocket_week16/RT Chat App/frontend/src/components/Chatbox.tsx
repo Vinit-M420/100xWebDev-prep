@@ -78,7 +78,7 @@ const Chatbox = () => {
                     <span className="flex gap-2 items-center">
                     <span className='dark:text-gray-200 text-gray-600'>{roomCode}</span>
                     <div onClick={() => {
-                                navigator.clipboard.writeText(roomCode);
+                                navigator.clipboard.writeText(window.location.href);
                                 setToggleAlert(true);
                             }}>
                         <Share2  className='cursor-pointer size-5 text-gray-500 hover:text-gray-900 
@@ -96,7 +96,7 @@ const Chatbox = () => {
                     {messages.map((msgInfo, index) => 
                     <div key={index} 
                         className={`dark:text-black dark:bg-white bg-black text-white 
-                            py-1 px-2 w-fit rounded  ${msgInfo.isOwn ?  "ml-auto" : "mr-auto"}`}>
+                            py-1 px- w-fit rounded  ${msgInfo.isOwn ?  "ml-auto" : "mr-auto"}`}>
                         {msgInfo.message}
                     </div>
                     )}
@@ -157,7 +157,7 @@ const Chatbox = () => {
                                 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 
                                 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                     </svg>
-                    <span className="font-medium">Copied Room Code</span>
+                    <span className="font-medium">Copied Room Link</span>
                     
                 </div>
                 

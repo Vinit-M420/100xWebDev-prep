@@ -59,7 +59,7 @@ const Room = () => {
                                         
                             </input>
                             <div onClick={() => {
-                                navigator.clipboard.writeText(roomCode);
+                                navigator.clipboard.writeText(window.location.href + `room/${roomCode}`);
                                 setToggleAlert(true);
                                 }}>
                             <Share2  className='text-gray-400 hover:text-gray-200 cursor-pointer'/>
@@ -69,7 +69,8 @@ const Room = () => {
                             transition duration-100 hover:bg-gray-200 cursor-pointer'
                             onClick={() => {
                                 setRoomJoined(true);
-                                navigate(`/room/${roomCode}`);}}>
+                                navigate(`/room/${roomCode}`, { replace: true });
+                            }}>
                             Join
                         </button>
                     </div>
@@ -88,7 +89,7 @@ const Room = () => {
                                 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 
                                 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                     </svg>
-                    <span className="font-medium">Copied Room Code</span>
+                    <span className="font-medium">Copied Room Link</span>
                     
                 </div>
                 
