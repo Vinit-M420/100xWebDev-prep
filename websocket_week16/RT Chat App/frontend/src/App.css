@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
-body{
-    background-color:  #0a0b10;
-    color: #f4f4f4;
-}
 
-@layer utilities {
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+
+@layer utilities {  
   .scrollbar::-webkit-scrollbar {
     width: 5px;
     height: 5px;

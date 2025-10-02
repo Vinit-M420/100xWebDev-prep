@@ -9,37 +9,40 @@ const Room = () => {
     const { setRoomJoined } = useRoomJoinedStore();
     const modalAlert = useRef(null);
     const navigate = useNavigate(); 
-    
+
     function generateRoomCode(){
         const newRoomCode = Array.from({ length: 6 }, () => 
             String.fromCharCode(65 + Math.floor(Math.random() * 26))
         ).join('');
 
         setRoomCode(newRoomCode);
-    }
+    };
 
     useEffect(() => {
         const showAlert = setTimeout(() => setToggleAlert(false), 3000);
         return () => clearTimeout(showAlert)
     }, [toggleAlert]);
 
-     const handleAlertClose = () => {
+    
+    const handleAlertClose = () => {
         setToggleAlert(false);
-    }
+    };
 
     return (
-        <div className='flex flex-col justify-center items-center gap-5 h-screen'>
-            <h1 className='text-white text-4xl'>Real Time Chat Room</h1>     
+        <div className='flex flex-col justify-center items-center gap-5 h-screen
+                        dark:bg-zinc-950 bg-neutral-100'>
+            <h1 className='dark:text-neutral-100 text-4xl text-zinc-950'>Real Time Chat Room</h1>     
             {/* <h2 className="w-lg text-center">Simple Chat Rooms to communicate with your buddies</h2> */}
             <button 
-                className='bg-white text-black py-2 px-6 rounded-2xl font-semibold
-                    transition duration-100 hover:bg-gray-200 cursor-pointer'
+                className='dark:bg-neutral-100 bg-zinc-950 text-neutral-100 dark:text-zinc-950
+                    py-2 px-6 rounded-2xl font-semibold cursor-pointer transition duration-200
+                  dark:hover:bg-gray-300 hover:bg-zinc-700'
                 onClick={generateRoomCode}>
                 Create Room
             </button>
 
             {roomCode && (
-                <div className="border border-gray-500 rounded-xl bg-black p-4 overflow-y-auto 
+                <div className="border border-gray-500 rounded-xl bg-zinc-950 p-4 overflow-y-auto 
                                 w-fit h-auto animate-[pop_0.3s_ease-out]">
                     <div className="flex gap-10">
                         <div className="flex gap-3 items-center">
@@ -53,7 +56,7 @@ const Room = () => {
                             <Copy className='text-gray-400 hover:text-gray-200 cursor-pointer'/>
                             </div>
                         </div>
-                        <button className='bg-white text-black py-2 px-6 rounded-2xl font-semibold
+                        <button className='bg-neutral-100 text-zinc-950 py-2 px-6 rounded-2xl font-semibold
                             transition duration-100 hover:bg-gray-200 cursor-pointer'
                             onClick={() => {
                                 setRoomJoined(true);
@@ -68,7 +71,7 @@ const Room = () => {
             <div ref={modalAlert}
                 role="alert"
                 className="fixed inset-x bottom-6 left-6 mx-auto flex items-center justify-between 
-                            p-4 text-sm text-black bg-gray-200 rounded-lg w-fit max-w-xs shadow z-50">
+                            p-4 text-sm text-zinc-950 bg-gray-200 rounded-lg w-fit max-w-xs shadow z-50">
                 <div className="flex items-center gap-2">
                     <svg className="w-4 h-4" aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20" >

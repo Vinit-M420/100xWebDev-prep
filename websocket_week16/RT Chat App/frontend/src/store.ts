@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 interface RoomProps {
   roomCode: string | null;
@@ -21,6 +21,7 @@ export const useAlertStore = create<AlertProps>((set) => ({
     setToggleAlert: (state: boolean) => set({ toggleAlert: state }),
 }));
 
+
 interface RoomJoinedProps {
   roomJoined: boolean;
   setRoomJoined: (state: boolean) => void;
@@ -31,3 +32,13 @@ export const useRoomJoinedStore = create<RoomJoinedProps>((set) => ({
     setRoomJoined: (state: boolean) => set({ roomJoined: state }),
 }));
 
+
+interface ThemeProps {
+  isDark: boolean;
+  setDarkMode: (state: boolean) => void;
+};
+
+export const useThemeStore = create<ThemeProps>((set) => ({
+    isDark: true,
+    setDarkMode: (state: boolean) => set({ isDark: state }),
+}));

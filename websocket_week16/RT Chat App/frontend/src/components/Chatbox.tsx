@@ -16,8 +16,7 @@ const Chatbox = () => {
     const modalAlert = useRef(null);
     const wsRef = useRef<WebSocket | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-    const navigate = useNavigate();
-    
+    const navigate = useNavigate();    
     
     useEffect(() => {
         const ws = new WebSocket("ws://localhost:8069")
@@ -35,6 +34,7 @@ const Chatbox = () => {
 
         return () => ws.close();
     }, [])
+
 
     function sendMessage(){
         const message = inputRef.current?.value;
@@ -66,19 +66,22 @@ const Chatbox = () => {
 
     return (
         
-        <div className='flex flex-col justify-center items-center mt-5 gap-5 animate-[scaleIn_0.3s_ease-out]'>
+        <div className='flex flex-col justify-center items-center gap-5 animate-[scaleIn_0.3s_ease-out]
+                        bg-neutral-100 text-zinc-950 min-h-screen dark:bg-zinc-950 dark:text-neutral-100'>
             {roomCode && (
             <div className='flex flex-col justify-center items-center gap-2'>
-                <h1 className='text-white text-4xl'>Real Time Chat Room</h1>
-                <h3 className='text-xl text-gray-400 bg-black p-2 rounded-2xl 
-                    flex gap-4 items-center'>Room Code:{" "}
+                <h1 className='text-4xl'>Real Time Chat Room</h1>
+                <h3 className='text-xl dark:text-gray-400 text-zinc-950  dark:bg-black bg-white
+                    border border-gray-400 p-2 rounded-2xl flex gap-4 items-center'>
+                    Room Code:{" "}
                     <span className="flex gap-2 items-center">
-                    <span className='text-gray-200'>{roomCode}</span>
+                    <span className='dark:text-gray-200 text-gray-600'>{roomCode}</span>
                     <div onClick={() => {
                                 navigator.clipboard.writeText(roomCode);
                                 setToggleAlert(true);
                             }}>
-                        <Copy className='text-gray-400 hover:text-gray-100 cursor-pointer size-5'/>
+                        <Copy className='cursor-pointer size-5 text-gray-500 hover:text-gray-900 
+                            dark:text-gray-400 dark:hover:text-gray-100'/>
                     </div>
                     </span>
                 </h3>
@@ -87,12 +90,12 @@ const Chatbox = () => {
 
             {/* Chat Box */}
             <div className='border border-gray-500 h-[500px] w-[700px] rounded
-                        bg-black p-6 overflow-y-auto scroll-smooth scrollbar'>
+                        dark:bg-black bg-neutral-100 p-6 overflow-y-auto scroll-smooth scrollbar'>
                 <div className='flex flex-col gap-2'>
                     {messages.map((msgInfo, index) => 
                     <div key={index} 
-                        className={`text-black py-1 px-4 bg-white w-fit rounded 
-                            ${msgInfo.isOwn ?  "ml-auto" : "mr-auto"}`}>
+                        className={`dark:text-black dark:bg-white bg-black text-white 
+                            py-1 px-4 w-fit rounded  ${msgInfo.isOwn ?  "ml-auto" : "mr-auto"}`}>
                         {msgInfo.message}
                     </div>
                     )}
@@ -102,23 +105,26 @@ const Chatbox = () => {
         {/* Input Section */}            
         <div className='flex gap-5'>
             <input ref={inputRef} type="text" placeholder='Message ...' 
-                className='border border-gray-500 rounded-xl text-white bg-black
-                    placeholder:text-gray-300 w-xl p-2' 
+                className='border border-gray-500 rounded-xl dark:text-white dark:bg-black
+                    dark:placeholder:text-gray-300 placeholder:text-gray-800 w-xl p-2' 
                 onKeyDown={(e) => e.key === 'Enter' && sendMessage()} />
-            <button className='bg-white text-black py-2 px-6 rounded-2xl font-semibold
-                transition duration-100hover:bg-gray-200 cursor-pointer'
+            <button className='dark:bg-white dark:text-black bg-black text-white 
+                py-2 px-6 rounded-2xl font-semibold *:transition duration-100 
+                dark:hover:bg-gray-200 hover:bg-gray-800 cursor-pointer'
                 onClick={sendMessage}>
                 Send</button>
         </div> 
         
         {/* Leave Chat Room Button */}
-        <div className='fixed top-6 right-6 flex items-center justify-between p-4 cursor-pointer
-                text-sm text-white border border-gray-400 rounded-lg w-fit h-fit gap-2 transition duration-200
-                hover:border hover:border-gray-200 hover:shadow-xs hover:shadow-gray-200'
+        <div className='fixed top-6 right-6 flex items-center justify-between p-4 cursor-pointer text-sm
+                border dark:text-white text-zinc-950 dark:border-gray-400 border-zinc-700
+                rounded-lg w-fit h-fit gap-2 transition duration-200 bg-neutral-100 hover:border 
+              dark:hover:border-gray-300 dark:bg-black dark:hover:bg-zinc-800
+              hover:border-zinc-800 hover:bg-neutral-200'
             onClick={() =>{
                 setRoomCode('');
                 setRoomJoined(false);
-                navigate("/")
+                navigate("/")   
             }}>
             <MessageSquareX className='size-4'/>
             <span>Leave Chat Room</span>
