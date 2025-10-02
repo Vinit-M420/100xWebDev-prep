@@ -1,13 +1,17 @@
 import { create } from 'zustand';
 
 interface RoomProps {
-  roomCode: string | null;
+  roomCode: string;
+  showRoomDiv: boolean
   setRoomCode: (state: string) => void;
+  setShowRoomDiv: (state: boolean) => void;
 };
 
 export const useRoomStore = create<RoomProps>((set) => ({
-    roomCode: null,
-    setRoomCode: (state: string | null) => set({ roomCode: state }),
+    roomCode: '',
+    showRoomDiv: false,
+    setRoomCode: (state: string) => set({ roomCode: state }),
+    setShowRoomDiv: (state: boolean) => set({ showRoomDiv: state }),
 }));
 
 

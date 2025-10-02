@@ -13,7 +13,7 @@ const ws = new WebSocket.WebSocketServer({ port: 8069 });
 ws.on("connection", (socket) => {
     
     userCount += 1;
-    console.log("user connected #" , userCount);
+    // console.log("user connected #" , userCount);
 
     socket.on("message", (message) => {  
         const parsedMessage = JSON.parse(message.toString());
@@ -43,8 +43,6 @@ ws.on("connection", (socket) => {
                 }
             }
         }
-        // console.log("message recieved " + message.toString());
-        // allSockets.forEach(s => s.send(message.toString() + " : sent from the server"));
     })
 
     socket.on("disconnect", () => {
